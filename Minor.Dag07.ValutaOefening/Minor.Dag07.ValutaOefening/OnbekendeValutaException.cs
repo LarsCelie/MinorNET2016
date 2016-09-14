@@ -1,6 +1,6 @@
 ﻿using System;
 
-public class OnbekendeValutaException : Exception
+public class OnbekendeValutaException : InvalidOperationException
 {
     public OnbekendeValutaException()
     {
