@@ -225,5 +225,92 @@ namespace ValutaOefeningTest
             //Assert
             Assert.AreEqual("fl 3,20", result);
         }
+
+        [TestMethod]
+        public void EuroMaalEuro()
+        {
+            //Arrange
+            Valuta euro2 = new Valuta(Muntsoort.Euro, 5M);
+            Valuta euro = new Valuta(Muntsoort.Euro, 5M);
+
+            Valuta combineerd = euro2 * euro;
+
+            //Act
+            string result = combineerd.ToString();
+
+            //Assert
+            Assert.AreEqual("EUR 25,00", result);
+        }
+
+        [TestMethod]
+        public void GuldenMaalDukaat()
+        {
+            //Arrange
+            Valuta gulden = new Valuta(Muntsoort.Gulden, 10M);
+            Valuta dukaat = new Valuta(Muntsoort.Dukaat, 51M);
+
+            Valuta combineerd = gulden * dukaat;
+
+            //Act
+            string result = combineerd.ToString();
+
+            //Assert
+            Assert.AreEqual("fl 100,00", result);
+        }
+
+        [TestMethod]
+        public void ValutaPlus10Decimal()
+        {
+            //Arrange
+            Valuta val = new Valuta(Muntsoort.Euro, 5M);
+            val += 10M;
+
+            //Act
+
+            string result = val.ToString();
+
+            //Assert
+            Assert.AreEqual("EUR 15,00", result);
+        }
+
+        [TestMethod]
+        public void ValutaIsDecimal()
+        {
+            //Arrange
+            Valuta val = new Valuta(Muntsoort.Euro, 10M);
+
+            //Act
+
+            string result = String.Format("{0:N2}", (decimal)val);
+
+            //Assert
+            Assert.AreEqual("10,00", result);
+        }
+
+        [TestMethod]
+        public void DecimalIsValuta()
+        {
+            //Arrange
+            decimal dec = 10M;
+
+            //Act
+            Valuta val = dec;
+
+            //Assert
+            Assert.AreEqual(new Valuta(Muntsoort.Euro, 10M), val);
+        }
+
+        [TestMethod]
+        public void ValutaPlusPlus()
+        {
+            //Arrange
+            Valuta val = new Valuta(Muntsoort.Euro, 10);
+
+            //Act
+            val++;
+
+            //Assert
+            Assert.AreEqual("EUR 11,00", val.ToString());
+        }
     }
 }

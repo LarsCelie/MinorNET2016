@@ -1,6 +1,6 @@
 ﻿using System;
 
-public struct Valuta
+public struct Valuta : IEquatable<Valuta>
 {
     private readonly Muntsoort _Soort;
     private readonly decimal _Bedrag;
@@ -102,6 +102,31 @@ public struct Valuta
     {
         Muntsoort soort = val1._Soort;
         return new Valuta(soort, val1._Bedrag * val2.BerekenNaar(soort)._Bedrag);
+    }
+
+    public static bool operator == (Valuta val1, Valuta val2)
+    {
+        return val1.Equals(val2);
+    }
+
+    public static bool operator !=(Valuta val1, Valuta val2)
+    {
+        return !val1.Equals(val2);
+    }
+
+    public override bool Equals(object obj)
+    {
+        return base.Equals(obj);    
+    }
+
+    public override int GetHashCode()
+    {
+        return base.GetHashCode(); 
+    }
+
+    public bool Equals(Valuta other)
+    {
+        return Equals((Object) other);
     }
 
     public static implicit operator decimal(Valuta val)
