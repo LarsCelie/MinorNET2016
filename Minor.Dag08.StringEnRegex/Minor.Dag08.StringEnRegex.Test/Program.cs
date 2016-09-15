@@ -37,6 +37,32 @@ namespace Minor.Dag08.StringEnRegex.Test
         }
 
         [TestMethod]
+        public void NIET_EindigenMetMinderDan2Getallen()
+        {
+            //Arrange
+            RegexValutaChecker target = new RegexValutaChecker();
+
+            //Act
+            bool result = target.Check("3.0");
+
+            //Assert
+            Assert.IsFalse(result);
+        }
+
+        [TestMethod]
+        public void NIET_EindigenMetEenPunt()
+        {
+            //Arrange
+            RegexValutaChecker target = new RegexValutaChecker();
+
+            //Act
+            bool result = target.Check("3.");
+
+            //Assert
+            Assert.IsFalse(result);
+        }
+
+        [TestMethod]
         public void EindigMetPuntEn2Getallen()
         {
             //Arrange
@@ -148,6 +174,19 @@ namespace Minor.Dag08.StringEnRegex.Test
 
             //Act
             bool result = target.Check("+0.89");
+
+            //Assert
+            Assert.IsFalse(result);
+        }
+
+        [TestMethod]
+        public void Moet3getallenTussenCommas()
+        {
+            //Arrange
+            RegexValutaChecker target = new RegexValutaChecker();
+
+            //Act
+            bool result = target.Check("1,234567.80");
 
             //Assert
             Assert.IsFalse(result);
