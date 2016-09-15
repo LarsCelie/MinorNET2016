@@ -1,4 +1,4 @@
-﻿{
+{
   "version": "1.0.0-*",
   "testRunner": "mstest",
 
@@ -7,9 +7,9 @@
       "type": "platform",
       "version": "1.0.0"
     },
-    "MSTest.TestFramework": "1.0.1-preview",
+    "Minor.Dag08.StringEnRegex": "1.0.0-*",
     "dotnet-test-mstest": "1.1.1-preview",
-    "Minor.Dag07.ValutaOefening": "1.0.0-*",
+    "MSTest.TestFramework": "1.0.1-preview",
     "Microsoft.CodeCoverage": "1.0.1"
   },
 

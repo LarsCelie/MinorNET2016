@@ -121,7 +121,7 @@ public struct Valuta : IEquatable<Valuta>
 
     public override int GetHashCode()
     {
-        return base.GetHashCode(); 
+        return _Bedrag.GetHashCode() ^ _Soort.GetHashCode();
     }
 
     public bool Equals(Valuta other)
