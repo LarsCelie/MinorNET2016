@@ -160,7 +160,7 @@ namespace Minor.Dag08.StringEnRegex.Test
             RegexValutaChecker target = new RegexValutaChecker();
 
             //Act
-            bool result = target.Check("0.89");
+            bool result = target.Check("00.80");
 
             //Assert
             Assert.IsTrue(result);
