@@ -5,20 +5,20 @@ namespace EventsDrivenAssignment
     public class Persoon
     {
         public event LeeftijdChangedHandler LeeftijdChanged;
-        private int leeftijd;
+        private int _leeftijd;
         public string Naam { get; set; }
 
         public int Leeftijd
         {
             get
             {
-                return leeftijd;
+                return _leeftijd;
             }
 
             set
             {
-                OnLeeftijdChanged(new LeeftijdChangedEventArgs(Naam, leeftijd, value));
-                leeftijd = value;
+                OnLeeftijdChanged(new LeeftijdChangedEventArgs(Naam, _leeftijd, value));
+                _leeftijd = value;
             }
         }
 
