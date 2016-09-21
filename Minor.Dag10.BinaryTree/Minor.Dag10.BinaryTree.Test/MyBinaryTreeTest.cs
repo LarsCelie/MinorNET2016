@@ -157,7 +157,7 @@ namespace Minor.Dag10.BinaryTree.Test
         }
 
         [TestMethod]
-        public void TreeEnumerableTest()
+        public void TreeEnumerableIndexerTest()
         {
             // Arrange
             MyBinaryTree<int> tree = MyBinaryTree<int>.Empty;
@@ -186,6 +186,29 @@ namespace Minor.Dag10.BinaryTree.Test
 
             // Assert
             Assert.ThrowsException<IndexOutOfRangeException>(action);
+        }
+
+        [TestMethod]
+        public void DepthIs10With10SequentialItems()
+        {
+            // Arrange
+            MyBinaryTree<int> tree = MyBinaryTree<int>.Empty;
+            tree = tree.Add(1);
+            tree.Add(2);
+            tree.Add(3);
+            tree.Add(4);
+            tree.Add(5);
+            tree.Add(6);
+            tree.Add(7);
+            tree.Add(8);
+            tree.Add(9);
+            tree.Add(10);
+
+            // Act
+            int result = tree.Depth;
+
+            // Assert
+            Assert.AreEqual(10, result);
         }
     }
 }
