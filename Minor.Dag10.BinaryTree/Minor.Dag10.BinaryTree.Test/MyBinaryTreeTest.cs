@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 namespace Minor.Dag10.BinaryTree.Test
 {
     [TestClass]
-    public class Program
+    public class MyBinaryTreeTest
     {
         [TestMethod]
         public void CreateEmptyTree()
@@ -101,8 +101,8 @@ namespace Minor.Dag10.BinaryTree.Test
 
             // Act
             tree = tree.Add(5);
-            tree = tree.Add(3);
-            tree = tree.Add(7);
+            tree.Add(3);
+            tree.Add(7);
             int result = tree.Depth;
 
             // Assert
@@ -154,6 +154,38 @@ namespace Minor.Dag10.BinaryTree.Test
 
             // Assert
             Assert.IsFalse(result);
+        }
+
+        [TestMethod]
+        public void TreeEnumerableTest()
+        {
+            // Arrange
+            MyBinaryTree<int> tree = MyBinaryTree<int>.Empty;
+            tree = tree.Add(5);
+            tree = tree.Add(10);
+            tree = tree.Add(1);
+
+            // Act
+            int result = tree[1];
+
+            // Assert
+            Assert.AreEqual(5, result);
+        }
+
+        [TestMethod]
+        public void TreeEnumerableOutOfIndexTest()
+        {
+            // Arrange
+            MyBinaryTree<int> tree = MyBinaryTree<int>.Empty;
+            tree = tree.Add(5);
+            tree = tree.Add(10);
+            tree = tree.Add(1);
+
+            // Act
+            Action action = new Action( () => { var result = tree[3]; } );
+
+            // Assert
+            Assert.ThrowsException<IndexOutOfRangeException>(action);
         }
     }
 }

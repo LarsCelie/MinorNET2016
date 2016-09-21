@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Minor.Dag10.BinaryTree;
 
 namespace Minor.Dag10.BinaryTree
@@ -13,8 +14,8 @@ namespace Minor.Dag10.BinaryTree
         public Branch(T item)
         {
             _item = item;
-            _leftbranch = new Empty<T>();
-            _rightbranch = new Empty<T>();
+            _leftbranch = MyBinaryTree<T>.Empty;
+            _rightbranch = MyBinaryTree<T>.Empty;
         }
 
         public override int Count
@@ -59,6 +60,19 @@ namespace Minor.Dag10.BinaryTree
                 return _rightbranch.Contains(item);
             }
             return true;
+        }
+
+        public override IEnumerator<T> GetEnumerator()
+        {
+            foreach (T item in _leftbranch)
+            {
+                yield return item;
+            }
+            yield return _item;
+            foreach (T item in _rightbranch)
+            {
+                yield return item;
+            }
         }
     }
 }

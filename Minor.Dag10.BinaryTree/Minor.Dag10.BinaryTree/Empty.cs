@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Minor.Dag10.BinaryTree;
 
 namespace Minor.Dag10.BinaryTree
@@ -30,6 +31,11 @@ namespace Minor.Dag10.BinaryTree
         public override bool Contains(T item)
         {
             return false;
+        }
+
+        public override IEnumerator<T> GetEnumerator()
+        {
+            yield break;
         }
     }
 }
