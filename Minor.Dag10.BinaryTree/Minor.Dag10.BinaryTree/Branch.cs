@@ -49,7 +49,7 @@ namespace Minor.Dag10.BinaryTree
 
         public override bool Contains(T item)
         {
-            int comparison = _item.CompareTo(item);
+            int comparison = item.CompareTo(_item);
             if (comparison < 0)
             {
                 return _leftbranch.Contains(item);
