@@ -4,7 +4,7 @@ using Minor.Dag10.BinaryTree;
 namespace Minor.Dag10.BinaryTree
 {
 
-    public class Empty<T> : MyBinaryTree<T> where T : IComparable
+    internal class Empty<T> : MyBinaryTree<T> where T : IComparable
     {
         public override int Count
         {

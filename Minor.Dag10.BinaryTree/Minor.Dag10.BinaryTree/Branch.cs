@@ -4,22 +4,24 @@ using Minor.Dag10.BinaryTree;
 namespace Minor.Dag10.BinaryTree
 {
 
-    public class Branch<T> : MyBinaryTree<T> where T : IComparable
+    internal class Branch<T> : MyBinaryTree<T> where T : IComparable
     {
         private T _item;
-        public MyBinaryTree<T> LeftBranch { get; set; } = new Empty<T>();
-        public MyBinaryTree<T> RightBranch { get; set; } = new Empty<T>();
+        private MyBinaryTree<T> _leftbranch;
+        private MyBinaryTree<T> _rightbranch;
 
         public Branch(T item)
         {
-            this._item = item;
+            _item = item;
+            _leftbranch = new Empty<T>();
+            _rightbranch = new Empty<T>();
         }
 
         public override int Count
         {
             get
             {
-                return LeftBranch.Count + RightBranch.Count + 1;
+                return _leftbranch.Count + _rightbranch.Count + 1;
             }
         }
 
@@ -27,7 +29,7 @@ namespace Minor.Dag10.BinaryTree
         {
             get
             {
-                return 1 + Math.Max(LeftBranch.Depth, RightBranch.Depth);
+                return 1 + Math.Max(_leftbranch.Depth, _rightbranch.Depth);
             }
         }
 
@@ -35,11 +37,11 @@ namespace Minor.Dag10.BinaryTree
         {
             if (item.CompareTo(_item) < 0)
             {
-                LeftBranch = LeftBranch.Add(item);
+                _leftbranch = _leftbranch.Add(item);
             }
             else if (item.CompareTo(_item) > 0)
             {
-                RightBranch = RightBranch.Add(item);
+                _rightbranch = _rightbranch.Add(item);
             }
 
             return this;
@@ -47,7 +49,16 @@ namespace Minor.Dag10.BinaryTree
 
         public override bool Contains(T item)
         {
-            return item.Equals(_item) || LeftBranch.Contains(item) || RightBranch.Contains(item);
+            int comparison = _item.CompareTo(item);
+            if (comparison < 0)
+            {
+                return _leftbranch.Contains(item);
+            }
+            else if (comparison > 0)
+            {
+                return _rightbranch.Contains(item);
+            }
+            return true;
         }
     }
 }
