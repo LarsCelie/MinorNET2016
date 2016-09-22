@@ -5,7 +5,7 @@ using Minor.Dag10.BinaryTree;
 namespace Minor.Dag10.BinaryTree
 {
 
-    internal class Empty<T> : MyBinaryTree<T> where T : IComparable
+    internal class Empty<T> : BinaryTree<T> where T : IComparable
     {
         public override int Count
         {
@@ -23,7 +23,7 @@ namespace Minor.Dag10.BinaryTree
             }
         }
 
-        public override MyBinaryTree<T> Add(T item)
+        public override BinaryTree<T> Add(T item)
         {
             return new Branch<T>(item);
         }

@@ -5,17 +5,17 @@ using Minor.Dag10.BinaryTree;
 namespace Minor.Dag10.BinaryTree
 {
 
-    internal class Branch<T> : MyBinaryTree<T> where T : IComparable
+    internal class Branch<T> : BinaryTree<T> where T : IComparable
     {
         private T _item;
-        private MyBinaryTree<T> _leftbranch;
-        private MyBinaryTree<T> _rightbranch;
+        private BinaryTree<T> _leftbranch;
+        private BinaryTree<T> _rightbranch;
 
         public Branch(T item)
         {
             _item = item;
-            _leftbranch = MyBinaryTree<T>.Empty;
-            _rightbranch = MyBinaryTree<T>.Empty;
+            _leftbranch = BinaryTree<T>.Empty;
+            _rightbranch = BinaryTree<T>.Empty;
         }
 
         public override int Count
@@ -34,7 +34,7 @@ namespace Minor.Dag10.BinaryTree
             }
         }
 
-        public override MyBinaryTree<T> Add(T item)
+        public override BinaryTree<T> Add(T item)
         {
             if (item.CompareTo(_item) < 0)
             {

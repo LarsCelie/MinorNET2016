@@ -12,7 +12,7 @@ namespace Minor.Dag10.BinaryTree.Test
         public void CreateEmptyTree()
         {
             // Arrange
-            MyBinaryTree<int> tree = MyBinaryTree<int>.Empty;
+            BinaryTree<int> tree = BinaryTree<int>.Empty;
 
             // Act
             int result = tree.Count;
@@ -25,7 +25,7 @@ namespace Minor.Dag10.BinaryTree.Test
         public void CreateEmptyTreeAndAddFive()
         {
             // Arrange
-            MyBinaryTree<int> tree = MyBinaryTree<int>.Empty;
+            BinaryTree<int> tree = BinaryTree<int>.Empty;
 
             // Act
             tree = tree.Add(5);
@@ -39,7 +39,7 @@ namespace Minor.Dag10.BinaryTree.Test
         public void CreateEmptyTreeAndAddFiveThenThree()
         {
             // Arrange
-            MyBinaryTree<int> tree = MyBinaryTree<int>.Empty;
+            BinaryTree<int> tree = BinaryTree<int>.Empty;
 
             // Act
             tree = tree.Add(5);
@@ -54,7 +54,7 @@ namespace Minor.Dag10.BinaryTree.Test
         public void CreateEmptyTreeAndAddFiveThenThreeThenSeven()
         {
             // Arrange
-            MyBinaryTree<int> tree = MyBinaryTree<int>.Empty;
+            BinaryTree<int> tree = BinaryTree<int>.Empty;
 
             // Act
             tree = tree.Add(5);
@@ -70,7 +70,7 @@ namespace Minor.Dag10.BinaryTree.Test
         public void DepthIs0ForEmptyTree()
         {
             // Arrange
-            MyBinaryTree<int> tree = MyBinaryTree<int>.Empty;
+            BinaryTree<int> tree = BinaryTree<int>.Empty;
 
             // Act
             int result = tree.Depth;
@@ -83,7 +83,7 @@ namespace Minor.Dag10.BinaryTree.Test
         public void DepthIs1WithOneBranch()
         {
             // Arrange
-            MyBinaryTree<int> tree = MyBinaryTree<int>.Empty;
+            BinaryTree<int> tree = BinaryTree<int>.Empty;
 
             // Act
             tree = tree.Add(5);
@@ -97,7 +97,7 @@ namespace Minor.Dag10.BinaryTree.Test
         public void DepthIs2WhenAddingFiveThenThreeThenSeven()
         {
             // Arrange
-            MyBinaryTree<int> tree = MyBinaryTree<int>.Empty;
+            BinaryTree<int> tree = BinaryTree<int>.Empty;
 
             // Act
             tree = tree.Add(5);
@@ -113,7 +113,7 @@ namespace Minor.Dag10.BinaryTree.Test
         public void CountIsOneAfterAddingDuplicateItem()
         {
             // Arrange
-            MyBinaryTree<int> tree = MyBinaryTree<int>.Empty;
+            BinaryTree<int> tree = BinaryTree<int>.Empty;
 
             // Act
             tree = tree.Add(5);
@@ -128,7 +128,7 @@ namespace Minor.Dag10.BinaryTree.Test
         public void TreeContainsNumber()
         {
             // Arrange
-            MyBinaryTree<int> tree = MyBinaryTree<int>.Empty;
+            BinaryTree<int> tree = BinaryTree<int>.Empty;
 
             // Act
             tree = tree.Add(5);
@@ -144,7 +144,7 @@ namespace Minor.Dag10.BinaryTree.Test
         public void TreeDoesNotContainsNumber()
         {
             // Arrange
-            MyBinaryTree<int> tree = MyBinaryTree<int>.Empty;
+            BinaryTree<int> tree = BinaryTree<int>.Empty;
 
             // Act
             tree = tree.Add(5);
@@ -160,7 +160,7 @@ namespace Minor.Dag10.BinaryTree.Test
         public void TreeEnumerableIndexerTest()
         {
             // Arrange
-            MyBinaryTree<int> tree = MyBinaryTree<int>.Empty;
+            BinaryTree<int> tree = BinaryTree<int>.Empty;
             tree = tree.Add(5);
             tree = tree.Add(10);
             tree = tree.Add(1);
@@ -176,7 +176,7 @@ namespace Minor.Dag10.BinaryTree.Test
         public void TreeEnumerableOutOfIndexTest()
         {
             // Arrange
-            MyBinaryTree<int> tree = MyBinaryTree<int>.Empty;
+            BinaryTree<int> tree = BinaryTree<int>.Empty;
             tree = tree.Add(5);
             tree = tree.Add(10);
             tree = tree.Add(1);
@@ -192,7 +192,7 @@ namespace Minor.Dag10.BinaryTree.Test
         public void DepthIs10With10SequentialItems()
         {
             // Arrange
-            MyBinaryTree<int> tree = MyBinaryTree<int>.Empty;
+            BinaryTree<int> tree = BinaryTree<int>.Empty;
             tree = tree.Add(1);
             tree.Add(2);
             tree.Add(3);
