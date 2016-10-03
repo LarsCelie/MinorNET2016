@@ -185,10 +185,13 @@ namespace Minor.Dag16.DatabaseTestDriven.Test
 
             // Act
             target.Delete(boog2);
-            var b = target.FindById(1);
 
             // Assert
-            Assert.AreEqual("Hoyt", b.Merk);
+            using (var context = new BoogContext(options))
+            {
+                bool result = context.Bogen.Any(b => b.Merk == "Kaas");
+                Assert.IsFalse(result);
+            }
         }
     }
 }

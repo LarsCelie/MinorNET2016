@@ -18,7 +18,15 @@ namespace Minor.Dag16.DatabaseTestDriven
 
         public void Delete(Boog item)
         {
-            throw new NotImplementedException();
+            using (var context = new BoogContext(_options))
+            {
+                var boog = context.Bogen.Where(b => b.Id == item.Id).Single();
+                if (boog != null)
+                {
+                    context.Bogen.Remove(boog);
+                    context.SaveChanges();
+                }
+            }
         }
 
         public IEnumerable<Boog> FindAll()
