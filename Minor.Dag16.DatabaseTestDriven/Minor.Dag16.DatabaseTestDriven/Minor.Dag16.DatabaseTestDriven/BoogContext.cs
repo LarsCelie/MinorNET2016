@@ -11,6 +11,7 @@ namespace Minor.Dag16.DatabaseTestDriven
         }
 
         public DbSet<Boog> Bogen { get; set; }
+        public DbSet<Categorie> Categories { get; set; }
     }
 
 }

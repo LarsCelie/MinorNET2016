@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Microsoft.EntityFrameworkCore;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Linq.Expressions;
@@ -13,7 +14,7 @@ namespace Minor.Dag16.NorthWind
         {
             using (var context = new NorthwindContext())
             {
-                return context.Products.Select(product => product).ToList();
+                return context.Products.Include(p => p.Category).Select(product => product).ToList();
             }
         }
 
