@@ -14,6 +14,7 @@ namespace Minor.Dag13.FunWithFiles
             _watcher = new FileSystemWatcher();
             _watcher.Path = _documentsPath;
             _watcher.Filter = "*.txt";
+            _watcher.NotifyFilter = NotifyFilters.FileName | NotifyFilters.LastWrite;
             _watcher.Created += _watcher_Created;
             _watcher.Changed += _watcher_Changed;
             _watcher.EnableRaisingEvents = true;
