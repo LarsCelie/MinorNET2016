@@ -1,0 +1,30 @@
+﻿@model IEnumerable<Minor.Dag18.MVCwebsite.Entities.Monument>
+<br />
+<h1>De huidige monumenten lijst</h1>
+<br />
+<table class="table">
+    @{ var monument = Model.First();}
+    <thead>
+        <tr>
+            <th>@nameof(monument.Id)</th>
+            <th>@nameof(monument.Naam)</th>
+            <th>@nameof(monument.Hoogte)</th>
+        </tr>
+
+    </thead>
+
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@Html.DisplayFor(model => item.Id)</td>
+                <td>@Html.DisplayFor(model => item.Naam)</td>
+                <td>@Html.DisplayFor(model => item.Hoogte)</td>
+                <td>@Html.ActionLink("Delete", "Delete", new { id = item.Id }, new { onclick = "return confirm('Are you sure you want to delete this monument?')"})</td>
+            </tr>
+        }
+
+    </tbody>
+
+
+</table>
