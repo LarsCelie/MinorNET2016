@@ -1,0 +1,127 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "v1",
+    "title": "A monument Service",
+    "description": "A RESTfull service for monument registration",
+    "termsOfService": "None"
+  },
+  "basePath": "/",
+  "paths": {
+    "/api/Monumenten": {
+      "get": {
+        "tags": [ "Monumenten" ],
+        "operationId": "ApiMonumentenGet",
+        "consumes": [],
+        "produces": [ "text/plain", "application/json", "text/json" ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": {
+              "type": "array",
+              "items": { "$ref": "#/definitions/Monument" }
+            }
+          }
+        },
+        "deprecated": false
+      },
+      "post": {
+        "tags": [ "Monumenten" ],
+        "operationId": "ApiMonumentenPost",
+        "consumes": [ "application/json", "text/json", "application/json-patch+json" ],
+        "produces": [],
+        "parameters": [
+          {
+            "name": "monument",
+            "in": "body",
+            "required": false,
+            "schema": { "$ref": "#/definitions/Monument" }
+          }
+        ],
+        "responses": { "200": { "description": "Success" } },
+        "deprecated": false
+      }
+    },
+    "/api/Monumenten/{id}": {
+      "get": {
+        "tags": [ "Monumenten" ],
+        "operationId": "ApiMonumentenByIdGet",
+        "consumes": [],
+        "produces": [ "text/plain", "application/json", "text/json" ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "schema": { "$ref": "#/definitions/Monument" }
+          }
+        },
+        "deprecated": false
+      },
+      "put": {
+        "tags": [ "Monumenten" ],
+        "operationId": "ApiMonumentenByIdPut",
+        "consumes": [ "application/json", "text/json", "application/json-patch+json" ],
+        "produces": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "monument",
+            "in": "body",
+            "required": false,
+            "schema": { "$ref": "#/definitions/Monument" }
+          }
+        ],
+        "responses": { "200": { "description": "Success" } },
+        "deprecated": false
+      },
+      "delete": {
+        "tags": [ "Monumenten" ],
+        "operationId": "ApiMonumentenByIdDelete",
+        "consumes": [],
+        "produces": [],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "responses": { "200": { "description": "Success" } },
+        "deprecated": false
+      }
+    }
+  },
+  "definitions": {
+    "Monument": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "hoogte": {
+          "format": "int32",
+          "type": "integer"
+        },
+        "naam": { "type": "string" }
+      }
+    }
+  },
+  "securityDefinitions": {}
+}
