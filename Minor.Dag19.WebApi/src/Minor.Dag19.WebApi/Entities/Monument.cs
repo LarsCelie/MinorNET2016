@@ -1,4 +1,5 @@
 ﻿using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace Minor.Dag19.WebApi.Entities
 {
@@ -6,7 +7,11 @@ namespace Minor.Dag19.WebApi.Entities
     {
 
         public int Id { get; set; }
+
+        [Required]
         public int Hoogte { get; set; }
+
+        [Required]
         public string Naam { get; set; }
 
         public override bool Equals(object obj)

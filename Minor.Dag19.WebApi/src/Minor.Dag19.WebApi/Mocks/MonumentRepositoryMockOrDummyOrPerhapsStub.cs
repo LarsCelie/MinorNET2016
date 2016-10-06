@@ -35,7 +35,7 @@ namespace Minor.Dag19.WebApi.Mock
         public Monument Find(int id)
         {
             FindIdHasBeenCalled = true;
-            return monumenten.FirstOrDefault(m => m.Id == id);
+            return monumenten.Single(m => m.Id == id);
         }
 
         public void Insert(Monument mon)

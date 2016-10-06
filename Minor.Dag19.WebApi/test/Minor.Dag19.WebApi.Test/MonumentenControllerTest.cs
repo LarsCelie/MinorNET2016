@@ -1,4 +1,5 @@
-﻿using Microsoft.VisualStudio.TestTools.UnitTesting;
+﻿using Microsoft.AspNetCore.Mvc;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 using Minor.Dag19.WebApi.Controllers;
 using Minor.Dag19.WebApi.Entities;
 using Minor.Dag19.WebApi.Mock;
@@ -46,10 +47,12 @@ namespace Minor.Dag19.WebApi.Test
 
             // Act
             var result = mc.Get(2);
+            var mon = (result as OkObjectResult).Value;
 
             // Assert
             Assert.IsTrue(repo.FindIdHasBeenCalled);
-            Assert.AreEqual(monument, result);
+            Assert.IsInstanceOfType(mon, typeof(Monument));
+            Assert.AreEqual(monument, (mon as Monument));
         }
 
         [TestMethod]

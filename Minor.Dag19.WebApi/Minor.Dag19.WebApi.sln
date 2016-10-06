@@ -16,6 +16,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{DE20F66A-F
 EndProject
 Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Minor.Dag19.WebApi.Test", "test\Minor.Dag19.WebApi.Test\Minor.Dag19.WebApi.Test.xproj", "{972C86B1-330C-4FF0-B0D2-E74A67AFA9B8}"
 EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Minor.Dag19.WebApi.IntegrationTest", "test\Minor.Dag19.WebApi.IntegrationTest\Minor.Dag19.WebApi.IntegrationTest.xproj", "{019E718B-28E5-400D-A1C6-301CEAE534FA}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -30,6 +32,10 @@ Global
 		{972C86B1-330C-4FF0-B0D2-E74A67AFA9B8}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{972C86B1-330C-4FF0-B0D2-E74A67AFA9B8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{972C86B1-330C-4FF0-B0D2-E74A67AFA9B8}.Release|Any CPU.Build.0 = Release|Any CPU
+		{019E718B-28E5-400D-A1C6-301CEAE534FA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{019E718B-28E5-400D-A1C6-301CEAE534FA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{019E718B-28E5-400D-A1C6-301CEAE534FA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{019E718B-28E5-400D-A1C6-301CEAE534FA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -37,5 +43,6 @@ Global
 	GlobalSection(NestedProjects) = preSolution
 		{A9310C00-8A6A-45A7-B2E8-54E65049C711} = {11804B63-AA93-4EF7-AFED-CF26B66106FA}
 		{972C86B1-330C-4FF0-B0D2-E74A67AFA9B8} = {DE20F66A-FA48-4ED1-B3C8-C9E7A93B4DBB}
+		{019E718B-28E5-400D-A1C6-301CEAE534FA} = {DE20F66A-FA48-4ED1-B3C8-C9E7A93B4DBB}
 	EndGlobalSection
 EndGlobal

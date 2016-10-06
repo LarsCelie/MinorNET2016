@@ -5,10 +5,12 @@ using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
 using Minor.Dag19.WebApi.DAL;
 using Minor.Dag19.WebApi.Entities;
+using System.Net;
+using Controllers;
 
 namespace Minor.Dag19.WebApi.Controllers
 {
-    [Route("api/[controller]")]
+    [Route("api/v1/[controller]")]
     public class MonumentenController : Controller
     {
         private IRepository<Monument, int> _repository;
@@ -27,16 +29,44 @@ namespace Minor.Dag19.WebApi.Controllers
 
         // GET api/values/5
         [HttpGet("{id}")]
-        public Monument Get(int id)
+        public IActionResult Get(int id)
         {
-            return _repository.Find(id);
+
+            try
+            {
+                var obj =  _repository.Find(id);
+                return Ok(obj);
+            }
+            catch (Exception)
+            {
+                var serverError = new FunctionalError { ErrorCode = "MC8001", ErrorMessage = "Unable to insert due to some server error" };
+                return BadRequest(serverError);
+            }
+            
         }
 
         // POST api/values
         [HttpPost]
-        public void Post([FromBody, Bind("Id,Naam,Hoogte")]Monument monument)
+        [ProducesResponseType(typeof(void), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(FunctionalError), (int)HttpStatusCode.BadRequest)]
+        public IActionResult Post([FromBody, Bind("Id,Naam,Hoogte")]Monument monument)
         {
-            _repository.Insert(monument);
+            if (ModelState.IsValid)
+            {
+                try
+                {
+                    _repository.Insert(monument);
+                    return Ok();
+                } 
+                catch (Exception)
+                {
+                    var serverError = new FunctionalError { ErrorCode = "MC8001", ErrorMessage = "Unable to insert due to some server error" };
+                    return BadRequest(serverError);
+                }
+            }
+
+            var error = new FunctionalError { ErrorCode = "MC8000", ErrorMessage = "Monument does not have the required properties" };
+            return BadRequest(error);
         }
 
         // PUT api/values/5
