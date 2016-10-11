@@ -7,6 +7,7 @@ using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Logging;
+using FrontEnd.Agents;
 
 namespace FrontEnd
 {
@@ -35,7 +36,7 @@ namespace FrontEnd
         {
             // Add framework services.
             services.AddApplicationInsightsTelemetry(Configuration);
-
+            services.AddScoped<CursusService>();
             services.AddMvc();
         }
 

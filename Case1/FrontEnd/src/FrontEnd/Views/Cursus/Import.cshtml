@@ -1,7 +1,9 @@
 ﻿
-
-<h1>Curssen importeren</h1>
-<form>
-    <input type="file" name="fileUpload" accept=".txt" />
-    @Html.ActionLink("Submit", "ImportFile")
+<h1>Cursusplanning importeren</h1>
+<form method="post" asp-action="Import" asp-controller="Cursus" enctype="multipart/form-data">
+    <div>
+        <label for="files" class="btn">Selecteer bestand</label>
+        <input id="files" style="visibility:hidden;" accept=".txt" name="data" type="file">
+    </div>
+    <button type="submit">Importeren</button>
 </form>

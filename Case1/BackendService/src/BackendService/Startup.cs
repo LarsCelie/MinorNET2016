@@ -11,6 +11,7 @@ using Swashbuckle.Swagger.Model;
 using BackendService.Repository;
 using BackendService.Dummy;
 using BackendService.Entities;
+using Microsoft.EntityFrameworkCore;
 
 namespace BackendService
 {
@@ -40,7 +41,7 @@ namespace BackendService
         {
             // Add framework services.
             services.AddApplicationInsightsTelemetry(Configuration);
-            services.AddSingleton<IRepository<CursusInstantie, int>, CursusRepositoryDummy>();
+            services.AddScoped<IRepository<CursusInstantie, int>, CursusRepository>();
             services.AddSwaggerGen();
             services.ConfigureSwaggerGen(option =>
             {
@@ -51,6 +52,8 @@ namespace BackendService
                     TermsOfService = "None"
                 });
             });
+            services.AddDbContext<CursusContext>(options =>
+                options.UseSqlServer(Configuration.GetConnectionString("DefaultConnection")));
             services.AddMvc();
         }
 

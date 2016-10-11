@@ -7,8 +7,8 @@ namespace BackendService.Repository
     {
 
         IEnumerable<T> FindAll();
-        T FindBy(K id);
         void Insert(T item);
+        T FindById(K key);
     }
 
 }

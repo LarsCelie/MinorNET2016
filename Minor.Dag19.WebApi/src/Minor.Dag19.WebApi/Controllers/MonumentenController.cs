@@ -31,7 +31,6 @@ namespace Minor.Dag19.WebApi.Controllers
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-
             try
             {
                 var obj =  _repository.Find(id);
@@ -47,7 +46,7 @@ namespace Minor.Dag19.WebApi.Controllers
 
         // POST api/values
         [HttpPost]
-        [ProducesResponseType(typeof(void), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(OkResult), (int)HttpStatusCode.OK)]
         [ProducesResponseType(typeof(FunctionalError), (int)HttpStatusCode.BadRequest)]
         public IActionResult Post([FromBody, Bind("Id,Naam,Hoogte")]Monument monument)
         {

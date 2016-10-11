@@ -18,8 +18,6 @@ namespace Minor.Dag19.AutoRestClient
                 Console.WriteLine(item.Naam);
             }
 
-            agent.ApiMonumentenByIdPut(id, new Agents.Models.Monument())
-
             Console.WriteLine();
             Console.WriteLine("Press any key to quit");
             Console.ReadKey();

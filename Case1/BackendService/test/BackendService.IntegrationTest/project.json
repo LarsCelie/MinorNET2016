@@ -1,16 +1,16 @@
-{
+﻿{
   "version": "1.0.0-*",
   "testRunner": "mstest",
 
   "dependencies": {
-    "BackendService": "1.0.0-*",
     "Microsoft.NETCore.App": {
       "type": "platform",
       "version": "1.0.1"
     },
     "MSTest.TestFramework": "1.0.4-preview",
     "dotnet-test-mstest": "1.1.1-preview",
-    "Microsoft.EntityFrameworkCore.InMemory": "1.0.1",
+    "BackendService": "1.0.0-*",
+    "Microsoft.AspNetCore.TestHost": "1.0.0"
   },
 
   "frameworks": {

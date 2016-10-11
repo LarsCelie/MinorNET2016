@@ -12,9 +12,9 @@ namespace BackendService.Dummy
         public CursusRepositoryDummy()
         {
             _cursussen = new List<CursusInstantie>();
-            _cursussen.Add(new CursusInstantie { Id = 1, Cursus = new Cursus { Code = "ABC", Titel = "Test", Duur = 2 }, Startdatum = DateTime.Today });
-            _cursussen.Add(new CursusInstantie { Id = 2, Cursus = new Cursus { Code = "CNETIN", Titel = "C# programmeren", Duur = 5 }, Startdatum = DateTime.Today });
-            _cursussen.Add(new CursusInstantie { Id = 3, Cursus = new Cursus { Code = "XYZ", Titel = "The end of alphabet", Duur = 3 }, Startdatum = DateTime.Today });
+            _cursussen.Add(new CursusInstantie { Id = 1, Cursus = new Cursus { Code = "ABC", Titel = "Test", Duur = 2 }, Startdatum = DateTime.Today.ToString() });
+            _cursussen.Add(new CursusInstantie { Id = 2, Cursus = new Cursus { Code = "CNETIN", Titel = "C# programmeren", Duur = 5 }, Startdatum = DateTime.Today.ToString() });
+            _cursussen.Add(new CursusInstantie { Id = 3, Cursus = new Cursus { Code = "XYZ", Titel = "The end of alphabet", Duur = 3 }, Startdatum = DateTime.Today.ToString() });
         }
 
         public bool InsertIsCalled { get; set; }
@@ -28,16 +28,16 @@ namespace BackendService.Dummy
             return _cursussen;
         }
 
-        public CursusInstantie FindBy(int id)
-        {
-            FindByIdIsCalled = true;
-            return _cursussen.Single(cursusinstantie => cursusinstantie.Id == id);
-        }
-
         public void Insert(CursusInstantie cursus)
         {
             CreateParameter = cursus;
             InsertIsCalled = true;
+        }
+
+        public CursusInstantie FindById(int key)
+        {
+            FindByIdIsCalled = true;
+            return _cursussen.Single(cursusinstantie => cursusinstantie.Id == key);
         }
     }
 

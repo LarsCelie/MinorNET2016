@@ -55,8 +55,8 @@ namespace BackendService.Test
             var target = new CursusController(repo);
 
             // Act
-            var cursus = new CursusInstantie { Cursus = new Cursus { Code = "ABC", Titel = "Test", Duur = 2 }, Startdatum = DateTime.Today, Id = 1 };
-            target.Post(cursus);
+            var cursus = new CursusInstantie { Cursus = new Cursus { Code = "ABC", Titel = "Test", Duur = 2 }, Startdatum = DateTime.Today.ToString(), Id = 1 };
+            target.Post(new List<CursusInstantie> { cursus });
 
             // Assert
             Assert.IsTrue(repo.InsertIsCalled);

@@ -15,8 +15,7 @@ namespace BackendService.Entities
         public Cursus Cursus { get; set; }
 
         [Required]
-        public DateTime Startdatum { get; set; }
-
-
+        [RegularExpression(@"^[1-3]?[0-9]/1?[0-9]/\d{4}$")]
+        public string Startdatum { get; set; }
     }
 }
