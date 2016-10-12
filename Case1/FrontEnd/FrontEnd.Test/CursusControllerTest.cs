@@ -2,6 +2,7 @@
 using FrontEnd.Agents.Models;
 using FrontEnd.Controllers;
 using FrontEnd.Mock;
+using FrontEnd.Viewmodels;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -19,7 +20,7 @@ namespace FrontEnd.Test
         [TestMethod]
         public void IndexTest()
         {
-            var service = new CursusService();
+            var service = new CursusServiceMock();
             var target = new CursusController(service);
 
             ActionResult result = target.Index();
@@ -30,7 +31,7 @@ namespace FrontEnd.Test
         [TestMethod]
         public void IndexReturnsCorrectModel()
         {
-            var service = new CursusService();
+            var service = new CursusServiceMock();
             var target = new CursusController(service);
 
             ActionResult result = target.Index();
@@ -38,13 +39,13 @@ namespace FrontEnd.Test
             Assert.IsNotNull((result as ViewResult).Model);
             Assert.IsInstanceOfType((result as ViewResult).Model, typeof(IEnumerable<CursusInstantie>));
             var model = (result as ViewResult).Model as IEnumerable<CursusInstantie>;
-            Assert.AreEqual(0, model.Count());
+            Assert.AreEqual(3, model.Count());
         }
 
         [TestMethod]
         public void Import()
         {
-            var service = new CursusService();
+            var service = new CursusServiceMock();
             var target = new CursusController(service);
 
             ActionResult result = target.Import();
@@ -56,15 +57,20 @@ namespace FrontEnd.Test
         public void ImportFile()
         {
             // Arrange
-            var service = new CursusService();
+            var service = new CursusServiceMock();
             var target = new CursusController(service);
 
-            var path = @"C:\TFS\LarsC\Case1\goedvoorbeeld.txt";
+            var mock = new IFromFileMock();
 
-            var file = File.OpenRead(path);
+            // Act
+            var result = target.Import(mock);
 
-            //Act
-            //target.Import(file);
+            // Assert
+            Assert.IsNotNull((result as ViewResult).Model);
+            Assert.IsInstanceOfType((result as ViewResult).Model, typeof(ImportViewModel));
+            var model = (result as ViewResult).Model as ImportViewModel;
+            Assert.IsTrue(service.PostIsCalled);
+            Assert.AreEqual(1, model.success.Total);
         }
     }
 }

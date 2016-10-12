@@ -1,0 +1,56 @@
+@model FrontEnd.Viewmodels.IndexViewModel
+
+@{
+    ViewData["Title"] = "Cursusoverzicht";
+}
+
+<h2>Cursusoverzicht</h2>
+
+<div>
+    <div class="col-md-3">
+        @Html.ActionLink("<", "IndexPerWeek", new { weeknummer = Model.Weeknummer - 1, jaar = Model.Year }, new { @class = "btn btn-default" })
+        @Html.ActionLink(">", "IndexPerWeek", new { weeknummer = Model.Weeknummer + 1, jaar = Model.Year }, new { @class = "btn btn-default" })
+    </div>
+    <form class="form-inline col-md-9" asp-action="IndexPerWeek" asp-controller="Cursus">
+        <div class="form-group">
+            <label for="WeekInput">Week</label>
+            <input type="text" class="form-control" name="weeknummer" id="WeekInput" placeholder="@Model.Weeknummer">
+        </div>
+        <div class="form-group">
+            <label for="JaarInput">Jaar</label>
+            <input type="text" class="form-control" name="jaar" id="JaarInput" placeholder="@Model.Year">
+        </div>
+        <button type="submit" class="btn btn-default">Navigeer</button>
+    </form>
+</div>
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Cursussen.First().Startdatum)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cursussen.First().Cursus.Duur)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cursussen.First().Cursus.Titel)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model.Cursussen)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(model => item.Startdatum)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.Cursus.Duur)
+                </td>
+                <td>
+                    @Html.DisplayFor(model => item.Cursus.Titel)
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

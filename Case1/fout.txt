@@ -1,0 +1,3 @@
+Titel: C# Programmeren
+Cursuscode: CNETIN
+Startdatum: 13/10/2014

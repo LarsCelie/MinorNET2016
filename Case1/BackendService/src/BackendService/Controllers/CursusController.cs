@@ -6,6 +6,8 @@ using BackendService.Repository;
 using Microsoft.AspNetCore.Mvc;
 using BackendService.Entities;
 using BackendService.Exceptions;
+using System.Net;
+using BackendService.Models;
 
 // For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
 
@@ -34,26 +36,37 @@ namespace BackendService.Controllers
         }
 
         [HttpPost]
-        public IActionResult Post([FromBody, Bind("Id,Cursus,Startdatum")]IEnumerable<CursusInstantie> cursus)
+        [ProducesResponseType(typeof(PostSuccess), (int)HttpStatusCode.OK)]
+        [ProducesResponseType(typeof(PostFailure), (int)HttpStatusCode.BadRequest)]
+        public IActionResult Post([FromBody]IEnumerable<CursusInstantie> cursus)
         {
             if (ModelState.IsValid)
             {
                 try
                 {
+                    int numberOfTimesInsertedSuccessfully = 0;
                     foreach (var c in cursus)
                     {
-                        _repository.Insert(c);
+                        try
+                        {
+                            _repository.Insert(c);
+                            numberOfTimesInsertedSuccessfully++;
+                        }
+                        catch (DuplicateItemException)
+                        {
+                            // Do nothing.
+                        }
                     }
-                    return Ok();
+                    return Ok(new PostSuccess { Total = cursus.Count(), Inserted = numberOfTimesInsertedSuccessfully});
                 }
                 catch (Exception)
                 {
-                    var serverError = new FunctionalError { ErrorCode = "MC8001", ErrorMessage = "Unable to insert due to some server error" };
+                    var serverError = new PostFailure { ErrorCode = "CC8001", ErrorMessage = "Unable to insert due to some server error" };
                     return BadRequest(serverError);
                 }
             }
 
-            var error = new FunctionalError { ErrorCode = "MC8000", ErrorMessage = "Monument does not have the required properties" };
+            var error = new PostFailure { ErrorCode = "CI8000", ErrorMessage = "CursusInstantie does not have the required properties" };
             return BadRequest(error);
         }
     }

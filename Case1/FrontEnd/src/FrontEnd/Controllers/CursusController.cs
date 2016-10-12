@@ -1,22 +1,25 @@
+using FrontEnd.Agents;
+using FrontEnd.Agents.Models;
+using FrontEnd.Exceptions;
+using FrontEnd.Viewmodels;
+using Microsoft.AspNetCore.Http;
+using Microsoft.AspNetCore.Mvc;
+using Microsoft.Rest;
 using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
-using FrontEnd.Agents;
-using Microsoft.AspNetCore.Mvc;
-using Microsoft.AspNetCore.Http;
+using System.Globalization;
 using System.IO;
-using Controllers;
-using FrontEnd.Agents.Models;
-using Microsoft.Rest;
+using System.Linq;
+using System.Text.RegularExpressions;
+using System.Threading.Tasks;
 
 namespace FrontEnd.Controllers
 {
     public class CursusController : Controller
     {
-        private CursusService _agent;
+        private ICursusService _agent;
 
-        public CursusController(CursusService agent)
+        public CursusController(ICursusService agent)
         {
             _agent = agent;
             agent.BaseUri = new Uri(@"http://localhost:3784/");
@@ -24,29 +27,48 @@ namespace FrontEnd.Controllers
 
         public ActionResult Index()
         {
-            var model = _agent.ApiV1CursusGet();
+            var weekNo = GetWeeknumberFrom(DateTime.Today);
+            var yearNo = DateTime.Today.Year;
+
+            return RedirectToAction("IndexPerWeek", new { weeknummer = weekNo, jaar = yearNo });
+        }
+        
+        public ActionResult IndexPerWeek(int weeknummer, int jaar)
+        {
+            var list = _agent.ApiV1CursusGet();
+            list = list.Where(cursus =>
+            {
+                DateTime time = parseTime(cursus.Startdatum);
+                return GetWeeknumberFrom(time) == weeknummer && time.Year == jaar;
+            }).OrderBy(cursus => parseTime(cursus.Startdatum)).ToList();
+
+            var model = new IndexViewModel { Cursussen = list, Weeknummer = weeknummer, Year = jaar };
             return View(model);
         }
 
+        [HttpGet]
         public ActionResult Import()
         {
-            return View();
+            return View(new ImportViewModel());
         }
 
         [HttpPost]
         public ActionResult Import(IFormFile data)
         {
+            var importmodel = new ImportViewModel();
+            List<CursusInstantie> cursussen = new List<CursusInstantie>();
             using (var stream = new StreamReader(data.OpenReadStream()))
             {
                 int linenumber = 0;
-                List<CursusInstantie> cursussen = new List<CursusInstantie>();
                 while (!stream.EndOfStream)
                 {
                     string titel = stream.ReadLine();
                     linenumber++;
-                    if (!titel.StartsWith("Titel: "))
+                   
+                    if (Regex.IsMatch(titel, @"^Titel: .+$"))
                     {
-                        throw new IllegalFormatException { ErrorCode = "IF001", ErrorName = $"Regel {linenumber} begint niet met Titel" };
+                        importmodel.validationError = new IllegalFormatException { ErrorCode = "IF001", ErrorMessage = $"Regel {linenumber} begint niet met Titel" };
+                        return View(importmodel);
                     }
                     titel = titel.Substring(titel.IndexOf(':') + 1).Trim();
 
@@ -54,7 +76,8 @@ namespace FrontEnd.Controllers
                     linenumber++;
                     if (!cursuscode.StartsWith("Cursuscode: "))
                     {
-                        throw new IllegalFormatException { ErrorCode = "IF002", ErrorName = $"Regel {linenumber} begint niet met Cursuscode" };
+                        importmodel.validationError = new IllegalFormatException { ErrorCode = "IF002", ErrorMessage = $"Regel {linenumber} begint niet met Cursuscode" };
+                        return View(importmodel);
                     }
                     cursuscode = cursuscode.Substring(cursuscode.IndexOf(':') + 1).Trim();
 
@@ -62,7 +85,8 @@ namespace FrontEnd.Controllers
                     linenumber++;
                     if (!duur.StartsWith("Duur: "))
                     {
-                        throw new IllegalFormatException { ErrorCode = "IF003", ErrorName = $"Regel {linenumber} begint niet met Duur" };
+                        importmodel.validationError = new IllegalFormatException { ErrorCode = "IF003", ErrorMessage = $"Regel {linenumber} begint niet met Duur" };
+                        return View(importmodel);
                     }
                     duur = duur.Substring(duur.IndexOf(':') + 1).Trim();
 
@@ -70,7 +94,8 @@ namespace FrontEnd.Controllers
                     linenumber++;
                     if (!datum.StartsWith("Startdatum: "))
                     {
-                        throw new IllegalFormatException { ErrorCode = "IF004", ErrorName = $"Regel {linenumber} begint niet met Startdatum" };
+                        importmodel.validationError = new IllegalFormatException { ErrorCode = "IF004", ErrorMessage = $"Regel {linenumber} begint niet met Startdatum" };
+                        return View(importmodel);
                     }
                     datum = datum.Substring(datum.IndexOf(':') + 1).Trim();
 
@@ -78,18 +103,20 @@ namespace FrontEnd.Controllers
                     linenumber++;
                     if (!String.IsNullOrWhiteSpace(empty))
                     {
-                        throw new IllegalFormatException { ErrorCode = "IF005", ErrorName = $"Regel {linenumber} begint bevat geen lege regel" };
+                        importmodel.validationError = new IllegalFormatException { ErrorCode = "IF005", ErrorMessage = $"Regel {linenumber} begint bevat geen lege regel" };
+                        return View(importmodel);
                     }
                     int duurAsNumber = Int32.Parse("" + duur[0]);
                     Cursus cursus = new Cursus { Code = cursuscode, Duur = duurAsNumber, Titel = titel };
                     try
                     {
                         cursus.Validate();
-                    } catch (ValidationException e)
-                    {
-                        throw new IllegalFormatException { ErrorCode = "IF006", ErrorName = $"{e.Message}" };
                     }
-
+                    catch (ValidationException e)
+                    {
+                        importmodel.validationError = new IllegalFormatException { ErrorCode = "IF006", ErrorMessage = $"{e.Message}" };
+                        return View(importmodel);
+                    }
                     CursusInstantie instantie = new CursusInstantie { Cursus = cursus, Startdatum = datum };
                     try
                     {
@@ -97,14 +124,38 @@ namespace FrontEnd.Controllers
                     }
                     catch (ValidationException e)
                     {
-                        throw new IllegalFormatException { ErrorCode = "IF006", ErrorName = $"{e.Message}" };
+                        importmodel.validationError = new IllegalFormatException { ErrorCode = "IF006", ErrorMessage = $"{e.Message}" };
+                        return View(importmodel);
                     }
                     cursussen.Add(instantie);
                 }
-
-                _agent.ApiV1CursusPost(cursussen);
             }
-            return View();
+            var result = _agent.ApiV1CursusPost(cursussen);
+
+            if (result is PostFailure)
+            {
+                importmodel.failure = (result as PostFailure);
+            }
+            else
+            {
+                importmodel.success = (result as PostSuccess);
+            }
+            return View(importmodel);
+        }
+
+        private DateTime parseTime(string time)
+        {
+            return DateTime.ParseExact(time, "dd/MM/yyyy", CultureInfo.InvariantCulture);
+        }
+
+        private int GetWeeknumberFrom(DateTime time)
+        {
+            var currentCulture = CultureInfo.CurrentCulture;
+            return currentCulture.Calendar.GetWeekOfYear(
+                        DateTime.Today,
+                        currentCulture.DateTimeFormat.CalendarWeekRule,
+                        currentCulture.DateTimeFormat.FirstDayOfWeek
+                );
         }
     }
 }

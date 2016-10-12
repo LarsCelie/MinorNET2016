@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Controllers
+namespace FrontEnd.Exceptions
 {
     public class IllegalFormatException : Exception
     {
@@ -10,6 +10,7 @@ namespace Controllers
 
         public IllegalFormatException(string message) : base(message)
         {
+            ErrorMessage = message;
         }
 
         public IllegalFormatException(string message, Exception innerException) : base(message, innerException)
@@ -17,6 +18,6 @@ namespace Controllers
         }
 
         public string ErrorCode { get; set; }
-        public string ErrorName { get; set; }
+        public string ErrorMessage { get; set; }
     }
 }

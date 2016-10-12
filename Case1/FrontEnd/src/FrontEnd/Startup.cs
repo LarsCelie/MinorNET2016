@@ -36,7 +36,7 @@ namespace FrontEnd
         {
             // Add framework services.
             services.AddApplicationInsightsTelemetry(Configuration);
-            services.AddScoped<CursusService>();
+            services.AddScoped<ICursusService, CursusService>();
             services.AddMvc();
         }
 

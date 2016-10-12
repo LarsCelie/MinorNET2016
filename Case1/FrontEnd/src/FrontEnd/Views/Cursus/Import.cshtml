@@ -1,4 +1,24 @@
-﻿
+﻿@model FrontEnd.Viewmodels.ImportViewModel
+<br />
+@if (Model.success != null)
+{
+    <div class="alert alert-success">
+        <strong>Succes!</strong> @Model.success.Inserted cursussen geimporteerd. @Model.duplicates zijn overgeslagen omdat deze dubbel zijn.
+    </div>
+}
+else if (Model.validationError != null)
+{
+    <div class="alert alert-danger">
+        <strong>Fout!</strong> Bestand valideert niet.<br />
+        @Model.validationError.ErrorCode: @Model.validationError.ErrorMessage
+    </div>
+}
+else if (Model.failure != null)
+{
+    <div class="alert alert-danger">
+        <strong>Fout!</strong> @Model.failure.ErrorMessage
+    </div>
+}
 <h1>Cursusplanning importeren</h1>
 <form method="post" asp-action="Import" asp-controller="Cursus" enctype="multipart/form-data">
     <div>

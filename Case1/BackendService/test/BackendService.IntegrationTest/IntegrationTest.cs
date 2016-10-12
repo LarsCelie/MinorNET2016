@@ -27,7 +27,7 @@ namespace BackendService.IntegrationTest
 
             var responseString = await response.Content.ReadAsStringAsync();
             // Assert
-            Assert.AreEqual("[]", responseString);
+            Assert.IsTrue(!String.IsNullOrWhiteSpace(responseString));
         }
     }
 }

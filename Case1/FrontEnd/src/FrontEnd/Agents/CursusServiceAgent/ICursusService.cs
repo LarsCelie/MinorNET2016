@@ -49,7 +49,7 @@ namespace FrontEnd.Agents
         /// <param name='cancellationToken'>
         /// The cancellation token.
         /// </param>
-        Task<HttpOperationResponse> ApiV1CursusPostWithHttpMessagesAsync(IList<CursusInstantie> cursus = default(IList<CursusInstantie>), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
+        Task<HttpOperationResponse<object>> ApiV1CursusPostWithHttpMessagesAsync(IList<CursusInstantie> cursus = default(IList<CursusInstantie>), Dictionary<string, List<string>> customHeaders = null, CancellationToken cancellationToken = default(CancellationToken));
 
         /// <param name='id'>
         /// </param>

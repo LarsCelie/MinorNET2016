@@ -10,6 +10,18 @@ namespace FrontEnd.Mock
 {
     public class IFromFileMock : IFormFile
     {
+        public string defaultText { get; set; }
+
+        public IFromFileMock()
+        {
+            defaultText = @"Titel: C# Programmeren
+Cursuscode: CNETIN
+Duur: 5 dagen
+Startdatum: 13/10/2014
+
+";
+        }
+
         public string ContentDisposition
         {
             get
@@ -70,7 +82,12 @@ namespace FrontEnd.Mock
 
         public Stream OpenReadStream()
         {
-            throw new NotImplementedException();
+            MemoryStream stream = new MemoryStream();
+            StreamWriter writer = new StreamWriter(stream);
+            writer.Write(defaultText);
+            writer.Flush();
+            stream.Position = 0;
+            return stream;
         }
     }
 }

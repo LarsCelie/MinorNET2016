@@ -57,9 +57,9 @@ namespace BackendService.Test
             IRepository<CursusInstantie, int> target = new CursusRepository(options);
 
             Cursus cursus = new Cursus { Code = "ABC", Titel = "The beginning of the alphabet", Duur = 5 };
-            CursusInstantie instance = new CursusInstantie { Cursus = cursus, Startdatum = DateTime.Today.ToString() };
+            CursusInstantie instance = new CursusInstantie { Cursus = cursus, Startdatum = "11/10/2016" };
 
-            CursusInstantie instance2 = new CursusInstantie { Cursus = cursus, Startdatum = DateTime.Today.ToString() };
+            CursusInstantie instance2 = new CursusInstantie { Cursus = cursus, Startdatum = "10/10/2016" };
 
             target.Insert(instance);
             target.Insert(instance2);
@@ -73,6 +73,22 @@ namespace BackendService.Test
             {
                 Assert.AreEqual(1, context.Cursussen.Count());
             }
+        }
+
+        [TestMethod]
+        public void AddTwoDuplicateCursusInstantie()
+        {
+            // Arrange
+            var options = CreateNewContextOptions();
+            IRepository<CursusInstantie, int> target = new CursusRepository(options);
+
+            Cursus cursus = new Cursus { Code = "ABC", Titel = "The beginning of the alphabet", Duur = 5 };
+            CursusInstantie instance = new CursusInstantie { Cursus = cursus, Startdatum = "11/10/2016" };
+
+            target.Insert(instance);
+
+            // Act Assert
+            Assert.ThrowsException<DuplicateItemException>(() => target.Insert(instance));
         }
 
         [TestMethod]

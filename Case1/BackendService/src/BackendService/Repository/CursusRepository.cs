@@ -34,8 +34,13 @@ public class CursusRepository : IRepository<CursusInstantie, int>
     {
         using (var context = new CursusContext(options))
         {
-            if (context.Cursussen.Any(cursus => cursus.Code == cursus.Code))
+            if (context.Cursussen.Any(cursus => cursus.Code == item.Cursus.Code))
             {
+                if (context.CursusInstanties.Any(ci => ci.Startdatum == item.Startdatum))
+                {
+                    throw new DuplicateItemException { ErrorCode = "DB001", ErrorMessage = "Duplicate item CursusInstantie" };
+                }
+
                 item.Cursus = context.Cursussen.Where(cat => cat.Code == item.Cursus.Code).First();
             }
             context.CursusInstanties.Add(item);

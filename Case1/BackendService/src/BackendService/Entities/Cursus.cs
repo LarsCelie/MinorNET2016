@@ -7,10 +7,10 @@ namespace BackendService.Entities
         [Key]
         public int Id { get; set; }
         
-        [Required, StringLength(10)]
+        [Required, MaxLength(10)]
         public string Code { get; set; }
 
-        [Required, StringLength(300)]
+        [Required, MaxLength(300)]
         public string Titel { get; set; }
 
         [Required, Range(1, 5)]

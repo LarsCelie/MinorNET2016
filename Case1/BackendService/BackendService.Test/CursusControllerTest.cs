@@ -48,17 +48,18 @@ namespace BackendService.Test
         }
 
         [TestMethod]
-        public void Insert()
+        public void InsertCorrectList()
         {
             // Arrange
             CursusRepositoryDummy repo = new CursusRepositoryDummy();
             var target = new CursusController(repo);
 
             // Act
-            var cursus = new CursusInstantie { Cursus = new Cursus { Code = "ABC", Titel = "Test", Duur = 2 }, Startdatum = DateTime.Today.ToString(), Id = 1 };
-            target.Post(new List<CursusInstantie> { cursus });
+            var cursus = new CursusInstantie { Cursus = new Cursus { Code = "ABC", Titel = "Test", Duur = 2 }, Startdatum = "15/10/2016", Id = 1 };
+            IActionResult result = target.Post(new List<CursusInstantie> { cursus });
 
             // Assert
+            Assert.IsInstanceOfType(result, typeof(OkObjectResult));
             Assert.IsTrue(repo.InsertIsCalled);
             Assert.AreEqual("ABC", repo.CreateParameter.Cursus.Code);
         }
