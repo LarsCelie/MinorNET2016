@@ -1,0 +1,43 @@
+@model IEnumerable<FrontEnd.Agents.Models.CursusInstantie>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h2>Cursussen</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.Startdatum)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cursus.Duur)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Cursus.Titel)
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+@foreach (var item in Model) {
+        <tr>
+            <td>
+                @Html.DisplayFor(model => item.Startdatum)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Cursus.Duur)
+            </td>
+            <td>
+                @Html.DisplayFor(model => item.Cursus.Titel)
+            </td>
+            @*<td>
+                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+            </td>*@
+        </tr>
+}
+    </tbody>
+</table>
