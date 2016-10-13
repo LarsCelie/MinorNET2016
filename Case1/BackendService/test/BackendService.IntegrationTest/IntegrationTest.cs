@@ -29,5 +29,22 @@ namespace BackendService.IntegrationTest
             // Assert
             Assert.IsTrue(!String.IsNullOrWhiteSpace(responseString));
         }
+
+        [TestMethod]
+        public async Task PostListOfCursusInstanties()
+        {
+            // Arrange
+            var _server = new TestServer(new WebHostBuilder()
+                .UseStartup<Startup>().UseContentRoot(@"C:\TFS\LarsC\Case1\BackendService\src\BackendService"));
+            var _client = _server.CreateClient();
+
+            // Act
+            var response = await _client.GetAsync("api/v1/cursus");
+            response.EnsureSuccessStatusCode();
+
+            var responseString = await response.Content.ReadAsStringAsync();
+            // Assert
+            Assert.IsTrue(!String.IsNullOrWhiteSpace(responseString));
+        }
     }
 }

@@ -32,7 +32,7 @@ namespace FrontEnd.Controllers
 
             return RedirectToAction("IndexPerWeek", new { weeknummer = weekNo, jaar = yearNo });
         }
-        
+
         public ActionResult IndexPerWeek(int weeknummer, int jaar)
         {
             var list = _agent.ApiV1CursusGet();
@@ -57,79 +57,55 @@ namespace FrontEnd.Controllers
         {
             var importmodel = new ImportViewModel();
             List<CursusInstantie> cursussen = new List<CursusInstantie>();
-            using (var stream = new StreamReader(data.OpenReadStream()))
+            try
             {
-                int linenumber = 0;
-                while (!stream.EndOfStream)
+
+                using (var stream = new StreamReader(data.OpenReadStream()))
                 {
-                    string titel = stream.ReadLine();
-                    linenumber++;
-                   
-                    if (Regex.IsMatch(titel, @"^Titel: .+$"))
+                    int linenumber = 0;
+                    while (!stream.EndOfStream)
                     {
-                        importmodel.validationError = new IllegalFormatException { ErrorCode = "IF001", ErrorMessage = $"Regel {linenumber} begint niet met Titel" };
-                        return View(importmodel);
-                    }
-                    titel = titel.Substring(titel.IndexOf(':') + 1).Trim();
+                        string titel = ValidateFormat(stream.ReadLine(), @"^Titel: .+$", ref linenumber);
 
-                    string cursuscode = stream.ReadLine();
-                    linenumber++;
-                    if (!cursuscode.StartsWith("Cursuscode: "))
-                    {
-                        importmodel.validationError = new IllegalFormatException { ErrorCode = "IF002", ErrorMessage = $"Regel {linenumber} begint niet met Cursuscode" };
-                        return View(importmodel);
-                    }
-                    cursuscode = cursuscode.Substring(cursuscode.IndexOf(':') + 1).Trim();
+                        string cursuscode = ValidateFormat(stream.ReadLine(), @"^Cursuscode: [A-Z0-9]{1,10}$", ref linenumber);
 
-                    string duur = stream.ReadLine();
-                    linenumber++;
-                    if (!duur.StartsWith("Duur: "))
-                    {
-                        importmodel.validationError = new IllegalFormatException { ErrorCode = "IF003", ErrorMessage = $"Regel {linenumber} begint niet met Duur" };
-                        return View(importmodel);
-                    }
-                    duur = duur.Substring(duur.IndexOf(':') + 1).Trim();
+                        string duur = ValidateFormat(stream.ReadLine(), @"^Duur: [1-5] dagen$", ref linenumber);
 
-                    string datum = stream.ReadLine();
-                    linenumber++;
-                    if (!datum.StartsWith("Startdatum: "))
-                    {
-                        importmodel.validationError = new IllegalFormatException { ErrorCode = "IF004", ErrorMessage = $"Regel {linenumber} begint niet met Startdatum" };
-                        return View(importmodel);
-                    }
-                    datum = datum.Substring(datum.IndexOf(':') + 1).Trim();
+                        string datum = ValidateFormat(stream.ReadLine(), @"Startdatum: \d{1,2}/\d{1,2}/\d{4}", ref linenumber);
 
-                    string empty = stream.ReadLine();
-                    linenumber++;
-                    if (!String.IsNullOrWhiteSpace(empty))
-                    {
-                        importmodel.validationError = new IllegalFormatException { ErrorCode = "IF005", ErrorMessage = $"Regel {linenumber} begint bevat geen lege regel" };
-                        return View(importmodel);
+                        //Empty line
+                        ValidateFormat(stream.ReadLine(), @"^\s*$", ref linenumber);
+
+                        int duurAsNumber = Int32.Parse("" + duur[0]);
+                        Cursus cursus = new Cursus { Code = cursuscode, Duur = duurAsNumber, Titel = titel };
+                        try
+                        {
+                            cursus.Validate();
+                        }
+                        catch (ValidationException e)
+                        {
+                            throw new IllegalFormatException { ErrorCode = "IF002", ErrorMessage = e.Message };
+                        }
+                        CursusInstantie instantie = new CursusInstantie { Cursus = cursus, Startdatum = datum };
+                        try
+                        {
+                            instantie.Validate();
+                        }
+                        catch (ValidationException e)
+                        {
+                            throw new IllegalFormatException { ErrorCode = "IF002", ErrorMessage = e.Message };
+                        }
+                        cursussen.Add(instantie);
                     }
-                    int duurAsNumber = Int32.Parse("" + duur[0]);
-                    Cursus cursus = new Cursus { Code = cursuscode, Duur = duurAsNumber, Titel = titel };
-                    try
-                    {
-                        cursus.Validate();
-                    }
-                    catch (ValidationException e)
-                    {
-                        importmodel.validationError = new IllegalFormatException { ErrorCode = "IF006", ErrorMessage = $"{e.Message}" };
-                        return View(importmodel);
-                    }
-                    CursusInstantie instantie = new CursusInstantie { Cursus = cursus, Startdatum = datum };
-                    try
-                    {
-                        instantie.Validate();
-                    }
-                    catch (ValidationException e)
-                    {
-                        importmodel.validationError = new IllegalFormatException { ErrorCode = "IF006", ErrorMessage = $"{e.Message}" };
-                        return View(importmodel);
-                    }
-                    cursussen.Add(instantie);
                 }
+
             }
+            catch (IllegalFormatException e)
+            {
+                importmodel.validationError = e;
+                return View(importmodel);
+            }
+
             var result = _agent.ApiV1CursusPost(cursussen);
 
             if (result is PostFailure)
@@ -141,6 +117,16 @@ namespace FrontEnd.Controllers
                 importmodel.success = (result as PostSuccess);
             }
             return View(importmodel);
+        }
+
+        private string ValidateFormat(string text, string regex, ref int linenumber)
+        {
+            linenumber++;
+            if (!Regex.IsMatch(text, regex))
+            {
+                throw new IllegalFormatException { ErrorCode = "IF001", ErrorMessage = $"Regel {linenumber} is niet volgens formaat" };
+            }
+            return text.Substring(text.IndexOf(':') + 1).Trim();
         }
 
         private DateTime parseTime(string time)

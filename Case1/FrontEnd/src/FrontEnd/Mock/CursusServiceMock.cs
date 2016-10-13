@@ -17,9 +17,9 @@ namespace FrontEnd.Mock
         public CursusServiceMock()
         {
             _cursussen = new List<CursusInstantie>();
-            _cursussen.Add(new CursusInstantie { Id = 2, Cursus = new Cursus { Id = 1, Code = "CNETIN", Titel = "C# programmeren", Duur = 5 }, Startdatum = DateTime.Today.ToString() });
-            _cursussen.Add(new CursusInstantie { Id = 1, Cursus = new Cursus { Id = 2, Code = "ABC", Titel = "Test", Duur = 2 }, Startdatum = DateTime.Today.ToString() });
-            _cursussen.Add(new CursusInstantie { Id = 3, Cursus = new Cursus { Id = 3, Code = "XYZ", Titel = "The end of alphabet", Duur = 3 }, Startdatum = DateTime.Today.ToString() });
+            _cursussen.Add(new CursusInstantie { Id = 2, Cursus = new Cursus { Id = 1, Code = "CNETIN", Titel = "C# programmeren", Duur = 5 }, Startdatum = "13/10/2016" });
+            _cursussen.Add(new CursusInstantie { Id = 1, Cursus = new Cursus { Id = 2, Code = "ABC", Titel = "Test", Duur = 2 }, Startdatum = "12/10/2016" });
+            _cursussen.Add(new CursusInstantie { Id = 3, Cursus = new Cursus { Id = 3, Code = "XYZ", Titel = "The end of alphabet", Duur = 3 }, Startdatum = "11/10/2016" });
         }
 
         public bool PostIsCalled { get; set; }

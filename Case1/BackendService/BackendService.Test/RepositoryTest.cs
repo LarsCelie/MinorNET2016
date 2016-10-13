@@ -58,37 +58,18 @@ namespace BackendService.Test
 
             Cursus cursus = new Cursus { Code = "ABC", Titel = "The beginning of the alphabet", Duur = 5 };
             CursusInstantie instance = new CursusInstantie { Cursus = cursus, Startdatum = "11/10/2016" };
-
             CursusInstantie instance2 = new CursusInstantie { Cursus = cursus, Startdatum = "10/10/2016" };
 
+            // Act
             target.Insert(instance);
             target.Insert(instance2);
 
-            // Act
-            var collection = target.FindAll();
-
             // Assert
-            Assert.AreEqual(2, collection.Count());
             using (var context = new CursusContext(options))
             {
+                Assert.AreEqual(2, context.CursusInstanties.Count());
                 Assert.AreEqual(1, context.Cursussen.Count());
             }
-        }
-
-        [TestMethod]
-        public void AddTwoDuplicateCursusInstantie()
-        {
-            // Arrange
-            var options = CreateNewContextOptions();
-            IRepository<CursusInstantie, int> target = new CursusRepository(options);
-
-            Cursus cursus = new Cursus { Code = "ABC", Titel = "The beginning of the alphabet", Duur = 5 };
-            CursusInstantie instance = new CursusInstantie { Cursus = cursus, Startdatum = "11/10/2016" };
-
-            target.Insert(instance);
-
-            // Act Assert
-            Assert.ThrowsException<DuplicateItemException>(() => target.Insert(instance));
         }
 
         [TestMethod]
@@ -109,6 +90,52 @@ namespace BackendService.Test
             // Assert
             Assert.AreEqual(1, item.Id);
             Assert.AreEqual("ABC", item.Cursus.Code);
+        }
+
+        [TestMethod]
+        public void AddTwoDuplicateCursusInstantie()
+        {
+            // Arrange
+            var options = CreateNewContextOptions();
+            IRepository<CursusInstantie, int> target = new CursusRepository(options);
+
+            Cursus cursus = new Cursus { Code = "ABC", Titel = "The beginning of the alphabet", Duur = 5 };
+            CursusInstantie instance = new CursusInstantie { Cursus = cursus, Startdatum = "11/10/2016" };
+
+            target.Insert(instance);
+
+            // Act Assert
+            Assert.ThrowsException<DuplicateItemException>(() => target.Insert(instance));
+        }
+
+        [TestMethod]
+        public void BUG_AddMultipleCursusInstantiesWithSameDatesButDifferentCursusDoesNotSave()
+        {
+            // Arrange
+            var options = CreateNewContextOptions();
+            IRepository<CursusInstantie, int> target = new CursusRepository(options);
+
+            Cursus cursus = new Cursus { Code = "CNETIN", Titel = "C# Programmeren", Duur = 5 };
+            Cursus cursus2 = new Cursus { Code = "ADCSB", Titel = "Advanced C#", Duur = 2 };
+            CursusInstantie instance = new CursusInstantie { Cursus = cursus, Startdatum = "13/10/2016" };
+            CursusInstantie instance2 = new CursusInstantie { Cursus = cursus, Startdatum = "20/10/2016" };
+            CursusInstantie instance3 = new CursusInstantie { Cursus = cursus2, Startdatum = "20/10/2016" };
+            CursusInstantie instance4 = new CursusInstantie { Cursus = cursus2, Startdatum = "13/10/2016" };
+
+            // Act
+            target.Insert(instance);
+            target.Insert(instance2);
+            target.Insert(instance3);
+            target.Insert(instance4);
+
+            // Assert
+            target.FindAll();
+
+            using (var context = new CursusContext(options))
+            {
+                Assert.AreEqual(4, context.CursusInstanties.Count());
+            }
+            
         }
 
     }

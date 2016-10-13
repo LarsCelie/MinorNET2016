@@ -34,14 +34,13 @@ public class CursusRepository : IRepository<CursusInstantie, int>
     {
         using (var context = new CursusContext(options))
         {
-            if (context.Cursussen.Any(cursus => cursus.Code == item.Cursus.Code))
+            if (context.Cursussen.Any(c => c.Code == item.Cursus.Code))
             {
-                if (context.CursusInstanties.Any(ci => ci.Startdatum == item.Startdatum))
-                {
-                    throw new DuplicateItemException { ErrorCode = "DB001", ErrorMessage = "Duplicate item CursusInstantie" };
-                }
-
-                item.Cursus = context.Cursussen.Where(cat => cat.Code == item.Cursus.Code).First();
+                item.Cursus = context.Cursussen.Single(c => c.Code == item.Cursus.Code);
+            }
+            if (context.CursusInstanties.Include(ci => ci.Cursus).Any(ci => ci.Startdatum == item.Startdatum && ci.Cursus.Code == item.Cursus.Code))
+            {
+                throw new DuplicateItemException { ErrorCode = "DB001", ErrorMessage = "Duplicate item CursusInstantie" };
             }
             context.CursusInstanties.Add(item);
             context.SaveChanges();
