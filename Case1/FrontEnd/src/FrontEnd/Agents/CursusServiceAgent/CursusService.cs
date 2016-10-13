@@ -62,6 +62,11 @@ namespace FrontEnd.Agents
             this.Initialize();
         }
 
+        public CursusService()
+        {
+            Initialize();
+        }
+
         /// <summary>
         /// Initializes a new instance of the CursusService class.
         /// </summary>
@@ -99,11 +104,6 @@ namespace FrontEnd.Agents
                 throw new ArgumentNullException("baseUri");
             }
             this.BaseUri = baseUri;
-        }
-
-        public CursusService()
-        {
-            Initialize();
         }
 
         /// <summary>

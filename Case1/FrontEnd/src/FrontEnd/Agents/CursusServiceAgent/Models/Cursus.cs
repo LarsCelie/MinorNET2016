@@ -68,20 +68,12 @@ namespace FrontEnd.Agents.Models
                 {
                     throw new ValidationException(ValidationRules.MaxLength, "Code", 10);
                 }
-                if (this.Code.Length < 0)
-                {
-                    throw new ValidationException(ValidationRules.MinLength, "Code", 0);
-                }
             }
             if (this.Titel != null)
             {
                 if (this.Titel.Length > 300)
                 {
                     throw new ValidationException(ValidationRules.MaxLength, "Titel", 300);
-                }
-                if (this.Titel.Length < 0)
-                {
-                    throw new ValidationException(ValidationRules.MinLength, "Titel", 0);
                 }
             }
             if (this.Duur > 5)
