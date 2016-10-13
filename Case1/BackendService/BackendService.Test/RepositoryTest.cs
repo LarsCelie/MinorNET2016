@@ -109,7 +109,7 @@ namespace BackendService.Test
         }
 
         [TestMethod]
-        public void BUG_AddMultipleCursusInstantiesWithSameDatesButDifferentCursusDoesNotSave()
+        public void BUG_AddMultipleCursusInstantiesWithSameDatesButDifferentCursusNotSaving()
         {
             // Arrange
             var options = CreateNewContextOptions();
@@ -129,10 +129,9 @@ namespace BackendService.Test
             target.Insert(instance4);
 
             // Assert
-            target.FindAll();
-
             using (var context = new CursusContext(options))
             {
+                Assert.AreEqual(2, context.Cursussen.Count());
                 Assert.AreEqual(4, context.CursusInstanties.Count());
             }
             

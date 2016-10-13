@@ -14,11 +14,11 @@
     <form class="form-inline col-md-9" asp-action="IndexPerWeek" asp-controller="Cursus">
         <div class="form-group">
             <label for="WeekInput">Week</label>
-            <input type="text" class="form-control" name="weeknummer" id="WeekInput" placeholder="@Model.Weeknummer">
+            <input type="text" class="form-control" name="weeknummer" id="WeekInput" value="@Model.Weeknummer">
         </div>
         <div class="form-group">
             <label for="JaarInput">Jaar</label>
-            <input type="text" class="form-control" name="jaar" id="JaarInput" placeholder="@Model.Year">
+            <input type="text" class="form-control" name="jaar" id="JaarInput" value="@Model.Year">
         </div>
         <button type="submit" class="btn btn-default">Navigeer</button>
     </form>

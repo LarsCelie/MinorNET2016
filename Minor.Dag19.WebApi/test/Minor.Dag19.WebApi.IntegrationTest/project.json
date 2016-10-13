@@ -1,4 +1,4 @@
-﻿{
+{
   "version": "1.0.0-*",
   "testRunner": "mstest",
 
@@ -9,10 +9,10 @@
     },
     "MSTest.TestFramework": "1.0.4-preview",
     "dotnet-test-mstest": "1.1.1-preview",
-    "BackendService": "1.0.0-*",
+    "Microsoft.CodeCoverage": "1.0.2",
     "Microsoft.AspNetCore.TestHost": "1.0.0",
+    "Minor.Dag19.WebApi": "1.0.0-*",
     "Newtonsoft.Json": "9.0.1",
-    "Microsoft.CodeCoverage": "1.0.2"
   },
 
   "frameworks": {

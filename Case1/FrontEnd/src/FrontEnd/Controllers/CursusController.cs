@@ -35,6 +35,16 @@ namespace FrontEnd.Controllers
 
         public ActionResult IndexPerWeek(int weeknummer, int jaar)
         {
+            if (weeknummer < 1)
+            {
+                weeknummer = 52;
+                jaar--;
+            } else if (weeknummer > 52)
+            {
+                weeknummer = 1;
+                jaar++;
+            }
+
             var list = _agent.ApiV1CursusGet();
             list = list.Where(cursus =>
             {
@@ -53,7 +63,7 @@ namespace FrontEnd.Controllers
         }
 
         [HttpPost]
-        public ActionResult Import(IFormFile data)
+        public ActionResult Import(IFormFile data, DateTime? startdatum, DateTime? einddatum)
         {
             var importmodel = new ImportViewModel();
             List<CursusInstantie> cursussen = new List<CursusInstantie>();
@@ -106,7 +116,8 @@ namespace FrontEnd.Controllers
                 return View(importmodel);
             }
 
-            var result = _agent.ApiV1CursusPost(cursussen);
+            var cursussenFiltered = FilterOnDate(cursussen, startdatum, einddatum);
+            var result = _agent.ApiV1CursusPost(cursussenFiltered);
 
             if (result is PostFailure)
             {
@@ -138,10 +149,26 @@ namespace FrontEnd.Controllers
         {
             var currentCulture = CultureInfo.CurrentCulture;
             return currentCulture.Calendar.GetWeekOfYear(
-                        DateTime.Today,
+                        time,
                         currentCulture.DateTimeFormat.CalendarWeekRule,
                         currentCulture.DateTimeFormat.FirstDayOfWeek
                 );
+        }
+
+        private IList<CursusInstantie> FilterOnDate(IList<CursusInstantie> list, DateTime? begindatum, DateTime? einddatum)
+        {
+            if (begindatum != null)
+            {
+                list = list.Where(ci => {
+                    DateTime time = parseTime(ci.Startdatum);
+                    return time.AddDays(ci.Cursus.Duur) >= begindatum;
+                    }).ToList();
+            }
+            if (einddatum != null)
+            {
+                list = list.Where(ci => parseTime(ci.Startdatum) <= einddatum).ToList();
+            }
+            return list;
         }
     }
 }

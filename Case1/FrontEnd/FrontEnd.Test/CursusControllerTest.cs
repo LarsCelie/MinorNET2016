@@ -55,7 +55,7 @@ namespace FrontEnd.Test
         }
 
         [TestMethod]
-        public void Import()
+        public void ImportView()
         {
             var service = new CursusServiceMock();
             var target = new CursusController(service);
@@ -75,7 +75,7 @@ namespace FrontEnd.Test
             var mock = new IFromFileMock();
 
             // Act
-            var result = target.Import(mock);
+            var result = target.Import(mock, null, null);
 
             // Assert
             Assert.IsNotNull((result as ViewResult).Model);
@@ -100,7 +100,7 @@ Startdatum: 14/10/2013
 ";
 
             // Act
-            var result = target.Import(mock);
+            var result = target.Import(mock, null, null);
 
             // Assert
             Assert.IsNotNull((result as ViewResult).Model);
@@ -124,7 +124,7 @@ Cursuscode: CNETIN
 Startdatum: 14/10/2013";
 
             // Act
-            var result = target.Import(mock);
+            var result = target.Import(mock, null, null);
 
             // Assert
             Assert.IsNotNull((result as ViewResult).Model);
@@ -149,7 +149,7 @@ Duur: 5 dagen
 Startdatum: 14-10-2013";
 
             // Act
-            var result = target.Import(mock);
+            var result = target.Import(mock, null, null);
 
             // Assert
             Assert.IsNotNull((result as ViewResult).Model);
@@ -174,7 +174,7 @@ Duur: 5
 Startdatum: 14/10/2013";
 
             // Act
-            var result = target.Import(mock);
+            var result = target.Import(mock, null, null);
 
             // Assert
             Assert.IsNotNull((result as ViewResult).Model);
@@ -203,7 +203,7 @@ Duur: 5 dagen
 Startdatum: 21/10/2013";
 
             // Act
-            var result = target.Import(mock);
+            var result = target.Import(mock, null, null);
 
             // Assert
             Assert.IsNotNull((result as ViewResult).Model);
@@ -213,5 +213,154 @@ Startdatum: 21/10/2013";
             Assert.IsNotNull(model.validationError);
             Assert.AreEqual("IF001", model.validationError.ErrorCode);
         }
+
+        [TestMethod]
+        public void ImportFileWithDateSpecifics()
+        {
+            // Arrange
+            var service = new CursusServiceMock();
+            var target = new CursusController(service);
+
+            var mock = new IFromFileMock();
+
+            var text = @"Titel: C# Programmeren
+Cursuscode: CNETIN
+Duur: 5 dagen
+Startdatum: 13/10/2014
+
+Titel: C# Programmeren
+Cursuscode: CNETIN
+Duur: 5 dagen
+Startdatum: 20/10/2014
+
+Titel: C# Programmeren
+Cursuscode: CNETIN
+Duur: 5 dagen
+Startdatum: 27/10/2014
+
+";
+            mock.defaultText = text;
+
+            // Act
+            var result = target.Import(mock, new DateTime(2014, 10, 20), new DateTime(2014, 10, 27));
+
+            // Assert
+            Assert.IsNotNull((result as ViewResult).Model);
+            Assert.IsInstanceOfType((result as ViewResult).Model, typeof(ImportViewModel));
+            var model = (result as ViewResult).Model as ImportViewModel;
+            Assert.AreEqual(2, model.success.Total);
+        }
+
+        [TestMethod]
+        public void ImportFileWithDateSpecificsButNoStartDate()
+        {
+            // Arrange
+            var service = new CursusServiceMock();
+            var target = new CursusController(service);
+
+            var mock = new IFromFileMock();
+
+            var text = @"Titel: C# Programmeren
+Cursuscode: CNETIN
+Duur: 5 dagen
+Startdatum: 13/10/2014
+
+Titel: C# Programmeren
+Cursuscode: CNETIN
+Duur: 5 dagen
+Startdatum: 20/10/2014
+
+Titel: C# Programmeren
+Cursuscode: CNETIN
+Duur: 5 dagen
+Startdatum: 27/10/2014
+
+";
+            mock.defaultText = text;
+
+            // Act
+            var result = target.Import(mock, null, new DateTime(2014, 10, 26));
+
+            // Assert
+            Assert.IsNotNull((result as ViewResult).Model);
+            Assert.IsInstanceOfType((result as ViewResult).Model, typeof(ImportViewModel));
+            var model = (result as ViewResult).Model as ImportViewModel;
+            Assert.AreEqual(2, model.success.Total);
+        }
+
+        [TestMethod]
+        public void ImportFileWithDateSpecificsButNoEndDate()
+        {
+            // Arrange
+            var service = new CursusServiceMock();
+            var target = new CursusController(service);
+
+            var mock = new IFromFileMock();
+
+            var text = @"Titel: C# Programmeren
+Cursuscode: CNETIN
+Duur: 5 dagen
+Startdatum: 13/10/2014
+
+Titel: C# Programmeren
+Cursuscode: CNETIN
+Duur: 5 dagen
+Startdatum: 20/10/2014
+
+Titel: C# Programmeren
+Cursuscode: CNETIN
+Duur: 5 dagen
+Startdatum: 27/10/2014
+
+";
+            mock.defaultText = text;
+
+            // Act
+            var result = target.Import(mock, new DateTime(2014, 10, 21), null);
+
+            // Assert
+            Assert.IsNotNull((result as ViewResult).Model);
+            Assert.IsInstanceOfType((result as ViewResult).Model, typeof(ImportViewModel));
+            var model = (result as ViewResult).Model as ImportViewModel;
+            Assert.AreEqual(2, model.success.Total);
+        }
+
+        [TestMethod]
+        public void ImportFileWithDateSpecificsDateIsAfterStartDateButInsideDuration()
+        {
+            // Arrange
+            var service = new CursusServiceMock();
+            var target = new CursusController(service);
+
+            var mock = new IFromFileMock();
+
+            var text = @"Titel: C# Programmeren
+Cursuscode: CNETIN
+Duur: 5 dagen
+Startdatum: 13/10/2014
+
+Titel: C# Programmeren
+Cursuscode: CNETIN
+Duur: 5 dagen
+Startdatum: 20/10/2014
+
+Titel: C# Programmeren
+Cursuscode: CNETIN
+Duur: 5 dagen
+Startdatum: 27/10/2014
+
+";
+            mock.defaultText = text;
+
+            // Act
+            var result = target.Import(mock, new DateTime(2014, 10, 21), null);
+
+            // Assert
+            Assert.IsNotNull((result as ViewResult).Model);
+            Assert.IsInstanceOfType((result as ViewResult).Model, typeof(ImportViewModel));
+            var model = (result as ViewResult).Model as ImportViewModel;
+            Assert.AreEqual(2, model.success.Total);
+        }
+
     }
 }

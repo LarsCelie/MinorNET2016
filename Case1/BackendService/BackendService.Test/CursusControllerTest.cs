@@ -54,6 +54,7 @@ namespace BackendService.Test
             CursusRepositoryDummy repo = new CursusRepositoryDummy();
             var target = new CursusController(repo);
 
+
             // Act
             var cursus = new CursusInstantie { Cursus = new Cursus { Code = "ABC", Titel = "Test", Duur = 2 }, Startdatum = "15/10/2016", Id = 1 };
             IActionResult result = target.Post(new List<CursusInstantie> { cursus });

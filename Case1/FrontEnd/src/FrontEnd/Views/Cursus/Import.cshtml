@@ -20,8 +20,17 @@ else if (Model.failure != null)
     </div>
 }
 <h1>Cursusplanning importeren</h1>
-<form method="post" asp-action="Import" asp-controller="Cursus" enctype="multipart/form-data">
-    <div>
+<form class="form-horizontal" method="post" asp-action="Import" asp-controller="Cursus" enctype="multipart/form-data">
+
+    <div class="form-group">
+        <label for="startdatum">Begindatum</label>
+        <input type="date" class="form-control" name="startdatum" id="startdatum">
+    </div>
+    <div class="form-group">
+        <label for="eindatum">Eindatum</label>
+        <input type="date" class="form-control" name="einddatum" id="einddatum">
+    </div>
+    <div class="form-group">
         <label for="files" class="btn">Selecteer bestand</label>
         <input id="files" style="visibility:hidden;" accept=".txt" name="data" type="file">
     </div>
