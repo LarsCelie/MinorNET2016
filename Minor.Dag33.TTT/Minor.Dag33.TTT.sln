@@ -1,0 +1,83 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{D3D22806-FB39-479C-9129-510B420E19CE}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{660CA264-7BF7-413E-8FA5-92BFD73CA3F1}"
+	ProjectSection(SolutionItems) = preProject
+		global.json = global.json
+	EndProjectSection
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "TTT.GameAdministration.Facade", "src\TTT.GameAdminstration.Facade\TTT.GameAdministration.Facade.xproj", "{3BA03E0E-3C06-4481-BD9C-802CB682E951}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{D6C0D32C-D1F7-404D-A57C-7105C2E9925C}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "TTT.GameAdministration.Infrastructure", "src\TTT.GameAdministration.Infrastructure\TTT.GameAdministration.Infrastructure.xproj", "{55EE69E1-BD9F-4836-AF89-A902F103D462}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "TTT.GameAdministration.Domain", "src\TTT.GameAdministration.Domain\TTT.GameAdministration.Domain.xproj", "{06CB336D-C716-4691-A1A0-7CD04C64AA6B}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "TTT.GameAdministration.Domain.Test", "test\TTT.GameAdministration.Domain.Test\TTT.GameAdministration.Domain.Test.xproj", "{0D909074-03A5-48FC-87C3-B21185F9422F}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "TTT.GameAdministration.Infrastructure.Test", "test\TTT.GameAdministration.Infrastructure.Test\TTT.GameAdministration.Infrastructure.Test.xproj", "{72DF7944-0443-41B5-8B78-0BEEBC8712F7}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "TTT.GameAdministration.Facade.Test", "test\TTT.GameAdministration.Facade.Test\TTT.GameAdministration.Facade.Test.xproj", "{75C6693C-6562-49E0-95D0-F815F188CF2F}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "TTT.GameAdministration.Incoming", "src\TTT.GameAdministration.Incoming\TTT.GameAdministration.Incoming.xproj", "{F85729C3-B865-4BC9-B31C-83D7D4096789}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "TTT.GameAdministration.Outgoing", "src\TTT.GameAdministration.Outgoing\TTT.GameAdministration.Outgoing.xproj", "{C40F5AD2-C31F-4FCF-8408-C99418592AA5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{3BA03E0E-3C06-4481-BD9C-802CB682E951}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3BA03E0E-3C06-4481-BD9C-802CB682E951}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3BA03E0E-3C06-4481-BD9C-802CB682E951}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3BA03E0E-3C06-4481-BD9C-802CB682E951}.Release|Any CPU.Build.0 = Release|Any CPU
+		{55EE69E1-BD9F-4836-AF89-A902F103D462}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{55EE69E1-BD9F-4836-AF89-A902F103D462}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{55EE69E1-BD9F-4836-AF89-A902F103D462}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{55EE69E1-BD9F-4836-AF89-A902F103D462}.Release|Any CPU.Build.0 = Release|Any CPU
+		{06CB336D-C716-4691-A1A0-7CD04C64AA6B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{06CB336D-C716-4691-A1A0-7CD04C64AA6B}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{06CB336D-C716-4691-A1A0-7CD04C64AA6B}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{06CB336D-C716-4691-A1A0-7CD04C64AA6B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0D909074-03A5-48FC-87C3-B21185F9422F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0D909074-03A5-48FC-87C3-B21185F9422F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0D909074-03A5-48FC-87C3-B21185F9422F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0D909074-03A5-48FC-87C3-B21185F9422F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{72DF7944-0443-41B5-8B78-0BEEBC8712F7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{72DF7944-0443-41B5-8B78-0BEEBC8712F7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{72DF7944-0443-41B5-8B78-0BEEBC8712F7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{72DF7944-0443-41B5-8B78-0BEEBC8712F7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{75C6693C-6562-49E0-95D0-F815F188CF2F}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{75C6693C-6562-49E0-95D0-F815F188CF2F}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{75C6693C-6562-49E0-95D0-F815F188CF2F}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{75C6693C-6562-49E0-95D0-F815F188CF2F}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F85729C3-B865-4BC9-B31C-83D7D4096789}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F85729C3-B865-4BC9-B31C-83D7D4096789}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F85729C3-B865-4BC9-B31C-83D7D4096789}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F85729C3-B865-4BC9-B31C-83D7D4096789}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C40F5AD2-C31F-4FCF-8408-C99418592AA5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C40F5AD2-C31F-4FCF-8408-C99418592AA5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C40F5AD2-C31F-4FCF-8408-C99418592AA5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C40F5AD2-C31F-4FCF-8408-C99418592AA5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{3BA03E0E-3C06-4481-BD9C-802CB682E951} = {D3D22806-FB39-479C-9129-510B420E19CE}
+		{55EE69E1-BD9F-4836-AF89-A902F103D462} = {D3D22806-FB39-479C-9129-510B420E19CE}
+		{06CB336D-C716-4691-A1A0-7CD04C64AA6B} = {D3D22806-FB39-479C-9129-510B420E19CE}
+		{0D909074-03A5-48FC-87C3-B21185F9422F} = {D6C0D32C-D1F7-404D-A57C-7105C2E9925C}
+		{72DF7944-0443-41B5-8B78-0BEEBC8712F7} = {D6C0D32C-D1F7-404D-A57C-7105C2E9925C}
+		{75C6693C-6562-49E0-95D0-F815F188CF2F} = {D6C0D32C-D1F7-404D-A57C-7105C2E9925C}
+		{F85729C3-B865-4BC9-B31C-83D7D4096789} = {D3D22806-FB39-479C-9129-510B420E19CE}
+		{C40F5AD2-C31F-4FCF-8408-C99418592AA5} = {D3D22806-FB39-479C-9129-510B420E19CE}
+	EndGlobalSection
+EndGlobal

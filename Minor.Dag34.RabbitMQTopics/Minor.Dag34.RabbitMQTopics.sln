@@ -1,0 +1,41 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{CDEA3B2D-7169-40AD-B580-1CCC4CB22750}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{BF5F84D1-EA05-4200-B50C-71C484283061}"
+	ProjectSection(SolutionItems) = preProject
+		global.json = global.json
+	EndProjectSection
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Minor.Dag34.RabbitMQTopics", "src\Minor.Dag34.RabbitMQTopics\Minor.Dag34.RabbitMQTopics.xproj", "{BDEA41D3-008D-43A6-9BEC-2A3915AD9721}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "test", "test", "{3095E8D1-5F9F-4AC9-97A3-D709658E42B1}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Minor.Dag34.RabbitMQTopics.Test", "test\Minor.Dag34.RabbitMQTopics.Test\Minor.Dag34.RabbitMQTopics.Test.xproj", "{07AA7E00-C415-4441-9694-DCE79E58F769}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{BDEA41D3-008D-43A6-9BEC-2A3915AD9721}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BDEA41D3-008D-43A6-9BEC-2A3915AD9721}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BDEA41D3-008D-43A6-9BEC-2A3915AD9721}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BDEA41D3-008D-43A6-9BEC-2A3915AD9721}.Release|Any CPU.Build.0 = Release|Any CPU
+		{07AA7E00-C415-4441-9694-DCE79E58F769}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{07AA7E00-C415-4441-9694-DCE79E58F769}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{07AA7E00-C415-4441-9694-DCE79E58F769}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{07AA7E00-C415-4441-9694-DCE79E58F769}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{BDEA41D3-008D-43A6-9BEC-2A3915AD9721} = {CDEA3B2D-7169-40AD-B580-1CCC4CB22750}
+		{07AA7E00-C415-4441-9694-DCE79E58F769} = {3095E8D1-5F9F-4AC9-97A3-D709658E42B1}
+	EndGlobalSection
+EndGlobal
