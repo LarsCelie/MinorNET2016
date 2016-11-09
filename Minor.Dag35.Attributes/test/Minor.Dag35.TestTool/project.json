@@ -1,17 +1,16 @@
 {
   "version": "1.0.0-*",
-  "testRunner": "mstest",
+  "buildOptions": {
+    "emitEntryPoint": true
+  },
 
   "dependencies": {
     "Microsoft.NETCore.App": {
       "type": "platform",
       "version": "1.0.1"
     },
-    "MSTest.TestFramework": "1.0.4-preview",
-    "dotnet-test-mstest": "1.1.1-preview",
-    "Moq": "4.6.38-alpha",
-    "RabbitMQ.Client": "4.1.1",
-    "Minor.Dag34.RabbitMQTopics": "1.0.0-*",
+    "Minor.Dag35.Attributes": "1.0.0-*",
+    "System.Reflection": "4.1.0"
   },
 
   "frameworks": {

@@ -35,7 +35,7 @@ namespace Minor.Dag34.RabbitMQTopics
 
         }
 
-        private static string Setup(IModel channel)
+        public static string Setup(IModel channel)
         {
             channel.ExchangeDeclare("chat", ExchangeType.Fanout);
             var queueName = channel.QueueDeclare().QueueName;
