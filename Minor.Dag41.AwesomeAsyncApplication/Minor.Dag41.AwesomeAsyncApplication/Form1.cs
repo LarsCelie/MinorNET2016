@@ -25,6 +25,8 @@ namespace Minor.Dag41.AwesomeAsyncApplication
 
         private void btnSumOfSquares_Click(object sender, EventArgs e)
         {
+            btnSumOfSquares.Enabled = false;
+
             squares = new ConcurrentBag<int>();
             SlowMath math = new SlowMath();
 
@@ -54,8 +56,10 @@ namespace Minor.Dag41.AwesomeAsyncApplication
                 var executeOnMain = (MethodInvoker)(() =>
                 {
                     txtOutput.Text = squares.Sum().ToString();
+                    btnSumOfSquares.Enabled = true;
                 });
                 Invoke(executeOnMain);
+
             }
         }
     }
