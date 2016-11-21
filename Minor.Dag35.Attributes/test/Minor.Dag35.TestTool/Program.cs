@@ -12,49 +12,65 @@ namespace Minor.Dag35.TestTool
     {
         public static void Main(string[] args)
         {
-            Assembly ass = Assembly.Load(new AssemblyName("Minor.Dag35.Attributes"));
+            Assembly assembly = Assembly.Load(new AssemblyName("Minor.Dag35.Attributes"));
 
+            WriteClassInfo(assembly);
+        }
+
+        private static void WriteClassInfo(Assembly ass)
+        {
             foreach (var type in ass.GetTypes())
             {
                 Console.WriteLine($"public class {type.Name}");
 
-                foreach (var method in type.GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static | BindingFlags.DeclaredOnly))
-                {
-
-                    Console.WriteLine($"\t{getVisibility(method)} {method}");
-
-                    foreach (var devAttr in method.GetCustomAttributes<TestAttribute>())
-                    {
-                        object instance = Activator.CreateInstance(type);
-                        object[] parameters = devAttr.Input;
-                        object result = null;
-
-                        try
-                        {
-                            result = method.Invoke(instance, parameters);
-                        } catch (Exception e)
-                        {
-                            result = e.GetBaseException().GetType().Name;
-                        }
-
-                        Object output = devAttr.Output != null ? devAttr.Output : devAttr.ExpectedException;
-                        string expected = "";
-
-                        if (!output.Equals(result))
-                        {
-                            Console.ForegroundColor = ConsoleColor.Red;
-                            expected = $" (Expected: { output})";
-                        }
-
-                        Console.WriteLine($"\t\t{method.Name}({string.Join(" ",devAttr.Input)}) = {result}{expected}");
-                        Console.ForegroundColor = ConsoleColor.Gray;
-
-                    }
-
-                    Console.WriteLine();
-                }
+                WriteMethodInfo(type);
 
                 Console.WriteLine();
+            }
+        }
+
+        private static void WriteMethodInfo(Type type)
+        {
+            foreach (var method in type.GetMethods(BindingFlags.Instance | BindingFlags.Public | BindingFlags.NonPublic | BindingFlags.Static | BindingFlags.DeclaredOnly))
+            {
+
+                Console.WriteLine($"\t{getVisibility(method)} {method}");
+
+                WriteTestAttributeInfo(type, method);
+
+                Console.WriteLine();
+            }
+        }
+
+        private static void WriteTestAttributeInfo(Type type, MethodInfo method)
+        {
+            foreach (var devAttr in method.GetCustomAttributes<TestAttribute>())
+            {
+                object instance = Activator.CreateInstance(type);
+                object[] parameters = devAttr.Input;
+                object result = null;
+
+                try
+                {
+                    result = method.Invoke(instance, parameters);
+                }
+                catch (Exception e)
+                {
+                    result = e.GetBaseException().GetType().Name;
+                }
+
+                Object output = devAttr.Output != null ? devAttr.Output : devAttr.ExpectedException;
+                string expected = "";
+
+                if (!output.Equals(result))
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    expected = $" (Expected: { output})";
+                }
+
+                Console.WriteLine($"\t\t{method.Name}({string.Join(" ", devAttr.Input)}) = {result}{expected}");
+                Console.ForegroundColor = ConsoleColor.Gray;
+
             }
         }
 

@@ -1,0 +1,29 @@
+﻿{
+  "version": "1.0.0-*",
+  "buildOptions": {
+    "emitEntryPoint": true
+  },
+
+  "dependencies": {
+    "Microsoft.NETCore.App": {
+      "type": "platform",
+      "version": "1.0.1"
+    },
+    "RabbitMQ.Client": "4.1.1"
+  },
+
+  "frameworks": {
+    "netcoreapp1.0": {
+      "imports": "dnxcore50"
+    },
+  },
+
+  "scripts": {
+    "postcompile": [
+      "dotnet publish -f \"netcoreapp1.0\" -r \"debian.8-x64\" -c debug -o \"bin/Debug/netcoreapp1.0/publish\"",
+      "docker build -t minor/eventsender ."
+    
+    ]
+
+  }
+}
