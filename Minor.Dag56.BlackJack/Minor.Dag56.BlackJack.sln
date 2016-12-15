@@ -1,0 +1,39 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.25420.1
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "src", "src", "{F565D319-F715-49EE-8863-0A318C58B285}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{7CFD9ADB-FEF8-4AFE-B9EA-2EEC54E581F5}"
+	ProjectSection(SolutionItems) = preProject
+		global.json = global.json
+	EndProjectSection
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Minor.Dag56.BlackJackService", "src\Minor.Dag56.BlackJack\Minor.Dag56.BlackJackService.xproj", "{0C4A68D2-623D-4AFF-A95C-AEA6911D1B84}"
+EndProject
+Project("{8BB2217D-0F2D-49D1-97BC-3654ED321F3B}") = "Minor.Dag56.BlackJackConsole", "src\Minor.Dag56.BlackJackConsole\Minor.Dag56.BlackJackConsole.xproj", "{9878EED1-5711-4972-B908-99B3BCC35C91}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{0C4A68D2-623D-4AFF-A95C-AEA6911D1B84}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0C4A68D2-623D-4AFF-A95C-AEA6911D1B84}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0C4A68D2-623D-4AFF-A95C-AEA6911D1B84}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0C4A68D2-623D-4AFF-A95C-AEA6911D1B84}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9878EED1-5711-4972-B908-99B3BCC35C91}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9878EED1-5711-4972-B908-99B3BCC35C91}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9878EED1-5711-4972-B908-99B3BCC35C91}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9878EED1-5711-4972-B908-99B3BCC35C91}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{0C4A68D2-623D-4AFF-A95C-AEA6911D1B84} = {F565D319-F715-49EE-8863-0A318C58B285}
+		{9878EED1-5711-4972-B908-99B3BCC35C91} = {F565D319-F715-49EE-8863-0A318C58B285}
+	EndGlobalSection
+EndGlobal
