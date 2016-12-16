@@ -8,33 +8,174 @@ namespace Minor.Dag56.BlackJack.Domain
 {
     public class Game
     {
-        public Deck Deck { get; set; }
+        public bool InProgress { get; set; }
 
+        private Dealer _dealer;
+        private Player _player;
 
         public Game()
         {
-            Deck = new Deck();
+            _dealer = new Dealer();
+            _player = new Player();
+            InProgress = true;
         }
 
-        public Card NewCard()
+        public Card DrawNewCard()
         {
-            return Deck.DealCard();
+            if (!InProgress)
+            {
+                throw new InvalidOperationException();
+            }
+            return _dealer.DrawCard();
+        }
+
+        internal Card[] PlayerHand()
+        {
+            return _player.Cards();
+        }
+
+        internal Card[] DealerHand()
+        {
+            return _dealer.Cards();
+        }
+
+        internal int PlayerHandValue()
+        {
+            return _player.HandValue();
+        }
+
+        internal int DealerHandValue()
+        {
+            return _dealer.HandValue();
+        }
+
+        internal void DealCardToPlayer(Card card)
+        {
+            if (!InProgress)
+            {
+                throw new InvalidOperationException();
+            }
+            _player.GiveCard(card);
+        }
+
+        internal void DealCardToDealer(Card card)
+        {
+            if (!InProgress)
+            {
+                throw new InvalidOperationException();
+            }
+            _dealer.GiveCard(card);
         }
 
         public void Execute(GameStartedEvent gameEvent)
         {
-            // nothing to do.
+            // nothing to do
         }
 
-        public void Execute(CardDealtEvent gameEvent)
+        public void Execute(GameRestartedEvent gameEvent)
         {
-            NewCard();
+            _dealer = new Dealer();
+            _player = new Player();
+            InProgress = true;
+        }
+
+        public void Execute(GameFinishedEvent gameEvent)
+        {
+            InProgress = false;
         }
 
         public void Execute(DeckShuffledEvent gameEvent)
         {
-            int seed = gameEvent.Seed;
-            Deck.Shuffle(gameEvent.Seed);
+            _dealer.Shuffle(gameEvent.Seed);
         }
+
+        public void Execute(PlayerCardDealtEvent gameEvent)
+        {
+            var card = _dealer.DrawCard();
+            _player.GiveCard(card);
+        }
+
+        public void Execute(DealerCardDealtEvent gameEvent)
+        {
+            var card = _dealer.DrawCard();
+            _dealer.GiveCard(card);
+        }
+
+        public void Execute(PlayerHiddenCardDealtEvent gameEvent)
+        {
+            var card = _dealer.DrawCard();
+            _player.GiveCard(card);
+        }
+
+        public void Execute(DealerHiddenCardDealtEvent gameEvent)
+        {
+            var card = _dealer.DrawCard();
+            _dealer.GiveCard(card);
+        }
+
+        public void Execute(PlayerHandRevealedEvent gameEvent)
+        {
+            // No need to do anything, but for consistency calling the method.
+            PlayerHand();
+        }
+
+        public void Execute(PlayerHitsEvent gameEvent)
+        {
+            var card = _dealer.DrawCard();
+            _player.GiveCard(card);
+        }
+
+        public void Execute(DealerHitsEvent gameEvent)
+        {
+            var card = _dealer.DrawCard();
+            _dealer.GiveCard(card);
+        }
+
+        public void Execute(PlayerStandsEvent gameEvent)
+        {
+            // Do nothing
+        }
+
+        public void Execute(DealerStandsEvent gameEvent)
+        {
+            // Do nothing
+        }
+
+        public void Execute(PlayerBustsEvent gameEvent)
+        {
+            // Do nothing
+        }
+
+        public void Execute(DealerBustsEvent gameEvent)
+        {
+            // Do nothing
+        }
+
+        public void Execute(PlayerWinsEvent gameEvent)
+        {
+            // Do nothing
+        }
+
+        public void Execute(PlayerLostEvent gameEvent)
+        {
+            // Do nothing
+        }
+
+        public void Execute(PlayerPushEvent gameEvent)
+        {
+            // Do nothing
+        }
+
+        public void Execute(PlayerBlackJackEvent gameEvent)
+        {
+
+        }
+
+        public void Execute(DealerBlackJackEvent gameEvent)
+        {
+
+        }
+
+
     }
 }

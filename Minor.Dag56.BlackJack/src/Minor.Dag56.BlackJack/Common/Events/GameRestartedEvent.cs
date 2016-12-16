@@ -6,8 +6,7 @@ using System.Threading.Tasks;
 
 namespace Minor.Dag56.BlackJack.Common.Events
 {
-    public class DealerCardDealtEvent : DomainEvent
+    public class GameRestartedEvent : DomainEvent
     {
-
     }
 }

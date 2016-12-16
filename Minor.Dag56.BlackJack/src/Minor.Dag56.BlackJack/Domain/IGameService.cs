@@ -8,9 +8,9 @@ namespace Minor.Dag56.BlackJack.Domain
     public interface IGameService
     {
         void StartGame();
-
-        void Init();
-        void Shuffle();
-        void DealPlayerCard();
+        void Hit();
+        void Stand();
+        void ShowPlayerHand();
+        void RestartGame();
     }
 }

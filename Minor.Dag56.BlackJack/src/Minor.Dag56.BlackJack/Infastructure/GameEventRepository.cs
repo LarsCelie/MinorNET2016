@@ -11,11 +11,13 @@ namespace Minor.Dag56.BlackJack.Infastructure
 
     public class GameEventRepository : IRepository
     {
-        private ConcurrentBag<DomainEvent> _events;
+        private List<DomainEvent> _events;
+
         public GameEventRepository()
         {
-            _events = new ConcurrentBag<DomainEvent>();
+            _events = new List<DomainEvent>();
         }
+
         public void Add(DomainEvent domainEvent)
         {
             _events.Add(domainEvent);

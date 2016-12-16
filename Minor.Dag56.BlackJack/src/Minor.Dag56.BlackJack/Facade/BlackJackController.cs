@@ -21,16 +21,24 @@ namespace Minor.Dag56.BlackJack
             _gameService.StartGame();
         }
 
-        public void Hit()
+        public void Hit(PlayerHitCommand command)
         {
-
+            _gameService.Hit();
         }
 
-        public void Stand()
+        public void Stand(PlayerStandCommand command)
         {
-            throw new NotImplementedException();
+            _gameService.Stand();
         }
 
+        public void PlayerHand(RevealPlayerHandCommand command)
+        {
+            _gameService.ShowPlayerHand();
+        }
 
+        public void RestartGame(RestartGameCommand command)
+        {
+            _gameService.RestartGame();
+        }
     }
 }

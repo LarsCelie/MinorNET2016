@@ -16,7 +16,25 @@ namespace Minor.Dag56.BlackJack.Domain
             Rank = rank;
         }
 
+        public int GetValue()
+        {
+            if (Rank < Rank.Jack)
+            {
+                return (int)Rank + 2;
+            }
+            else if (Rank == Rank.Ace)
+            {
+                return 11;
+            }
+            else
+            {
+                return 10;
+            }
+        }
+
     }
+
+
 
 
     public enum Suit
