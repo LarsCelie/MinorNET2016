@@ -1,7 +1,7 @@
 version: '2'
 
 services:
-  webapplication1:
+  dummywebapp:
     labels:
       - "com.microsoft.visualstudio.targetoperatingsystem=linux"
     volumes:

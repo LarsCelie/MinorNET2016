@@ -1,7 +1,7 @@
 version: '2'
 
 services:
-  webapplication1:
+  dummywebapp:
     build:
       args:
         source: obj/Docker/empty/

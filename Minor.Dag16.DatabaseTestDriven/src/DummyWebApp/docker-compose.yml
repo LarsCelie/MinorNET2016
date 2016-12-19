@@ -1,8 +1,8 @@
 version: '2'
 
 services:
-  webapplication1:
-    image: user/webapplication1${TAG}
+  dummywebapp:
+    image: user/dummywebapp${TAG}
     build:
       context: .
       dockerfile: Dockerfile
