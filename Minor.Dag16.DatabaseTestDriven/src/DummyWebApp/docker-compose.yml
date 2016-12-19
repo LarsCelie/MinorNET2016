@@ -2,7 +2,7 @@ version: '2'
 
 services:
   dummywebapp:
-    image: user/dummywebapp${TAG}
+    image: dummywebapp${TAG}
     build:
       context: .
       dockerfile: Dockerfile
